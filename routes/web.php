@@ -18,4 +18,6 @@ use App\Http\Controllers\EscursioneController;
 Route::get('/',[FrontController::class, 'getHome'])-> name('home');
 //Route::get('/escursione',[EscursioneController::class , 'index']) ->name('escursione.index');
 Route::resource('escursione', EscursioneController::class);
+Route::get('/escursione/{id}/destroy', [EscursioneController::class, 'destroy'])->name('escursione.destroy');
+Route::get('/escursione/{id}/destroy/confirm', [EscursioneController::class, 'confirmDestroy'])->name('escursione.destroy.confirm');
 
