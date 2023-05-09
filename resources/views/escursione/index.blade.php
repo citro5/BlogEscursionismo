@@ -7,26 +7,25 @@ style.css
 @endsection
 
 @section('left-navbar')
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="{{route('home')}}">Home</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active current" href="{{route('escursione.index')}}">Lista escursioni</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="">Blog</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="">Mappa</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="">Contatti</a>
-</li>
+<ul class="header__menu">
+    <li><a href="{{route('home')}}">Home</a></li>
+    <li><a href="{{route('escursione.index')}}">Lista escursioni</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#">Mappa</a></li>
+    <li><a href="#">Contatti</a></li>
+</ul>
+<div class="header__quick">
+    <a href="#" class="button-small">Login</a>
+    <div class="icon-hamburger">
+        <span></span>
+        <span></span>
+    </div>
+</div>
 @endsection
 
 @section('breadcrumb')
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
+  <ol class="breadcrumb ">
     <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Lista escursioni</li>
   </ol>
@@ -34,13 +33,13 @@ style.css
 @endsection
 
 @section('corpo')
-<div class="row">
-    <div class="col-xs-6">   
+<div class="grid">
+    <div class="col-100">   
         <a href="{{route('escursione.create')}}" class="btn btn-success">Crea una nuova escursione</a> <!--btn:bottone, btn-success: bottone verde-->
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">  <!--potrei non metterlo perche 12-->
+<div class="grid">
+    <div class="col-100">  <!--potrei non metterlo perche 12-->
         <table class="table table-responsive table-stripped table-hover">   <!--table: classe di bootstrap-->
             <col width="50%">   <!--prima colonna-->
             <col width="30%">   <!--seconda colonna-->

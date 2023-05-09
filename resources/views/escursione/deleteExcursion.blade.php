@@ -7,21 +7,20 @@ Rimuovere l'escursione "{{ $excursion->titolo }}"?
 @section('stile', 'style.css')
 
 @section('left-navbar')
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="{{route('home')}}">Home</a>
-</li>
-<li class="nav-item ">
-    <a class="nav-link current" href="{{route('escursione.index')}}">Lista escursioni</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="">Blog</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="">Mappa</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="">Contatti</a>
-</li>
+<ul class="header__menu">
+    <li><a href="{{route('home')}}">Home</a></li>
+    <li><a href="{{route('escursione.index')}}">Lista escursioni</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#">Mappa</a></li>
+    <li><a href="#">Contatti</a></li>
+</ul>
+<div class="header__quick">
+    <a href="#" class="button-small">Login</a>
+    <div class="icon-hamburger">
+        <span></span>
+        <span></span>
+    </div>
+</div>
 @endsection
 
 @section('breadcrumb')
@@ -35,7 +34,7 @@ Rimuovere l'escursione "{{ $excursion->titolo }}"?
 @endsection
 
 @section('corpo')
-<div class="row">
+<div class="grid mb-4">
     <div class="col-md-6">
         <div class="card text-center border-secondary">
             <div class='card-header'>
