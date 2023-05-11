@@ -6,22 +6,6 @@
 style.css
 @endsection
 
-@section('left-navbar')
-<ul class="header__menu text-center">
-    <li><a href="{{route('home')}}">Home</a></li>
-    <li><a href="{{route('escursione.index')}}">Lista escursioni</a></li>
-    <li><a href="#">Blog</a></li>
-    <li><a href="#">Mappa</a></li>
-    <li><a href="#">Contatti</a></li>
-</ul>
-<div class="header__quick">
-    <a href="#" class="button-small">Login</a>
-    <div class="icon-hamburger">
-        <span></span>
-        <span></span>                        <!-- crea righe icona menu--> 
-    </div>
-</div>
-@endsection
 
 @section('corpo')
 

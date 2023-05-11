@@ -41,4 +41,29 @@ class DataLayer {
     public function deleteExcursion($id) {
         $excursion = Escursione::find($id) -> delete();
     }
+
+    public function validUser($username,$password){
+        $users = User::where('email',$username)->get(['password']);
+        if(count($users)==0){
+            return false;
+        }
+        return (md5($password) == ($users[0]->password));
+    }
+    public function getUserName($email){
+        $users = User::where('email',$email)->get();
+        return $users[0]->name;
+    }
+    public function getUserID($username) {
+        $users = User::where('email',$username)->get(['id']);
+        return $users[0]->id;
+    }
+
+    public function addUser($name, $password, $email) {
+        $user = new User();
+        $user->name = $name;
+        $user->password = md5($password);
+        $user->email = $email;
+        $user->save();
+    }
+    
 };

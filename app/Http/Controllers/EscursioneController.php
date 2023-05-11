@@ -10,7 +10,7 @@ class EscursioneController extends Controller
     public function index(){
         $dl=new DataLayer();                                 //array di escursioni
         $excursions_list =$dl->listExcursions();                 //invoca la vista con l'array
-        return view("escursione.index")->with("excursions_list", $excursions_list); 
+        return view("escursione.index")->with("excursions_list", $excursions_list)->with('logged',true)->with('loggedName',$_SESSION['loggedName']); 
     }
     public function create(){
         $dl=new DataLayer();

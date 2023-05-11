@@ -20,7 +20,26 @@
     <header class="header">
         <div class="header__content">
             <a class="header__logo navbar-brand" href="{{route('home')}}"></a>
-            @yield('left-navbar')
+            <ul class="header__menu">
+                <li><a href="{{route('home')}}">Home</a></li>
+                <li><a href="{{route('escursione.index')}}">Lista escursioni</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Mappa</a></li>
+                <li><a href="#">Contatti</a></li>
+            </ul>
+            <div class="header__quick">
+                    @if($logged)
+                        <i>Benvenuto {{$loggedName }}</i> <a class="button" href="{{route('user.logout')}}">Logout</a> 
+                    @else
+                    <a class=" button" href="{{route('user.login')}}">Login</a>
+                <div class="icon-hamburger">
+                    <span></span>
+                    <span></span>
+                </div>
+                    @endif
+                
+                
+            </div>
         </div>
     </header>
 
