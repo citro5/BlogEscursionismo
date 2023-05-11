@@ -13,13 +13,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <script src="{{url('/')}}/js/bootstrap.bundle.min.js"></script>      <!-- Javascript -->
     <script src="http://code.jquery.com/jquery.js"></script>             <!-- prende la LIBRERIA JQUERY da quel sito-->
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 </head>
-
 
 <body>
     <header class="header">
         <div class="header__content">
-            <a class="header__logo" href="#"></a>
+            <a class="header__logo navbar-brand" href="{{route('home')}}"></a>
             @yield('left-navbar')
         </div>
     </header>
@@ -30,20 +30,20 @@
     
     @yield('corpo')
     
-    <footer class="footer">
+    <footer class="footer col-100">
         <div class="grid">
-            <div class="col-50">
+            <div class="col-50 reveal">
                 <h3>Escursioni camune</h3>
                 <p>Solo per veri appassionati di montagna</p>
             </div>
-            <div class="col-25">
+            <div class="col-25 reveal">
                 <h3> Contatti</h3>
                 <ul>
                     <li>mail: mattia.citroni00@gmail.com</li>
                     <li>335 622 5789</li>
                 </ul>
             </div>
-            <div class="col-25">
+            <div class="col-25 reveal">
                 <h3> Menu</h3>
                 <ul>
                     <li>Link</li>
@@ -53,5 +53,6 @@
         </div>
     </footer>
 </body>
+
 
 </html>

@@ -38,6 +38,22 @@ style.css
         <a href="{{route('escursione.create')}}" class="btn btn-success">Crea una nuova escursione</a> <!--btn:bottone, btn-success: bottone verde-->
     </div>
 </div>
+
+<section class="cards clearfix">
+@foreach($excursions_list as $excursion)
+    <div class="card">
+        <div class="card__img" style="background-image: url('http://afmarchetti.github.io/alux/image.jpg');"></div>
+        <div class="card_copy">
+        <h3> {{$excursion->titolo }}</h3>
+        <h4> {{ $excursion->tipologia->nome }}</h4>
+        <h4> {{$excursion->gruppoMontuoso->nome }}</h4>
+        <h4> {{$excursion->altitudine }} mt</h4>
+    </div>
+    </div> 
+    @endforeach 
+</section>
+
+
 <div class="grid">
     <div class="col-100">  <!--potrei non metterlo perche 12-->
         <table class="table table-responsive table-stripped table-hover">   <!--table: classe di bootstrap-->

@@ -43,7 +43,7 @@
 
 @section('corpo')
 <div class='grid mb-2'>
-    <div class='col-md-12'>
+    <div class='col-12'>
         @if(isset($excursion->id))
         <form class="form-horizontal" name="excursion" method="post" action="{{ route('escursione.update', ['escursione' => $excursion->id]) }}">
         @method('PUT')
@@ -147,4 +147,4 @@
     })
     </script>
 </div>
-@endsection
+@endsection   
