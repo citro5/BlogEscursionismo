@@ -58,12 +58,21 @@ class DataLayer {
         return $users[0]->id;
     }
 
-    public function addUser($name, $password, $email) {
+    public function addUser($username, $password, $email) {
         $user = new User();
-        $user->name = $name;
+        $user->name = $username;
         $user->password = md5($password);
         $user->email = $email;
         $user->save();
+    }
+
+    public function checkEmail($email) {
+        $users = User::where('email',$email)->get();
+        if (count($users) == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
     
 };

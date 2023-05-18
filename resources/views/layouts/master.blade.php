@@ -29,7 +29,7 @@
             </ul>
             <div class="header__quick">
                     @if($logged)
-                        <i>Benvenuto {{$loggedName }}</i> <a class="button" href="{{route('user.logout')}}">Logout</a> 
+                    <i class="bi bi-person-fill">&nbsp;{{$loggedName}}</i> <a class="button" href="{{route('user.logout')}}">Logout</a> 
                     @else
                     <a class=" button" href="{{route('user.login')}}">Login</a>
                 <div class="icon-hamburger">
@@ -37,7 +37,6 @@
                     <span></span>
                 </div>
                     @endif
-                
                 
             </div>
         </div>
