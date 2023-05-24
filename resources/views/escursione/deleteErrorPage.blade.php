@@ -20,12 +20,12 @@ Rimuovi escursione dalla lista
 @section('corpo')
 <div class="grid">
     <div class="col-md-12">
-        <div class="card text-center border-danger">
+        <div id="delete-card" class="card text-center border-danger">
             <div class='card-header'>
                 Accesso negato
             </div>
             <div class='card-body text-danger'>
-                <p>Qualcosa di <strong>errato</strong> è successo durante la procedura di cancellazione. Potrebbe essere l'id dell'escursione errato?</p>
+                <p>Qualcosa di <strong>errato</strong> è accaduto durante la procedura di cancellazione. Potrebbe essere l'id dell'escursione errato?</p>
                 <p><a class="btn btn-secondary" href="{{ route('escursione.index') }}"><i class="bi-box-arrow-left"></i> Torna alla lista delle escursioni</a></p>
             </div>
         </div>

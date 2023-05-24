@@ -20,25 +20,25 @@ Rimuovere l'escursione "{{ $excursion->titolo }}"?
 @section('corpo')
 <div class="grid mb-4">
     <div class="col-md-6">
-        <div class="card text-center border-secondary">
+        <div id="delete-card" class="card text-center border-secondary">
             <div class='card-header'>
                 Torna indietro
             </div>
             <div class='card-body'>
                 <p>L'escursione <strong>non sarà rimossa</strong> dalla lista</p>
-                <p><a class="btn btn-secondary" href="{{ route('escursione.index') }}"><i class="bi-box-arrow-left"></i> Back</a></p>
+                <p><a class="btn btn-secondary" href="{{ route('escursione.index') }}"><i class="bi-box-arrow-left"></i> Torna indietro</a></p>
             </div>
         </div>
     </div>
 
     <div class="col-md-6">
-        <div class="card text-center border-danger">
+        <div id="delete-card" class="card text-center border-danger">
             <div class='card-header'>
                 Conferma la cancellazione
             </div>
             <div class='card-body'>
                 <p>L'escursione <strong>sarà rimossa</strong> dalla lista</p>
-                <p><a class="btn btn-danger" href="{{ route('escursione.destroy', ['id' => $excursion->id]) }}"><i class="bi-trash3"></i> Remove</a></p>
+                <p><a class="btn btn-danger" href="{{ route('escursione.destroy', ['id' => $excursion->id]) }}"><i class="bi-trash3"></i> Rimuovi</a></p>
             </div>
         </div>
     </div>

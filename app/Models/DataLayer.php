@@ -13,6 +13,11 @@ class DataLayer {
     public function listMountainGroup(){
         return GruppoMontuoso::orderBy('id','asc')->get();
     }
+
+    public function listExcursionImages()
+    {
+        return Immagini::orderBy('id','asc')->get();
+    }
     public function findExcursionById($id) {
         return Escursione::find($id);
     }
@@ -57,9 +62,10 @@ class DataLayer {
         return $img;
     }
     
+    
     public function deleteExcursion($id) {
         $excursion = Escursione::find($id);
-        $excursion->image()->delete();
+        $img = Immagini::where('escursione_id',$id)->delete();
         $excursion-> delete();
     }
 

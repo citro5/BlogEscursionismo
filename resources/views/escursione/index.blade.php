@@ -16,24 +16,43 @@ style.css
 @endsection
 
 @section('corpo')
-<div class="grid">
-    <div class="col-100">   
-        <a href="{{route('escursione.create')}}" class="btn btn-success">Crea una nuova escursione</a> <!--btn:bottone, btn-success: bottone verde-->
+
+<div class="container text text-center mt-2">
+    <h1 class="mb-5 title" ><span>Lista delle escursioni</span></h1>
+</div>
+<div class="grid grid--center">
+    <div>   
+        <a id= "buttonNew" href="{{route('escursione.create')}}" class="btn btn-success">Crea una nuova escursione</a> <!--btn:bottone, btn-success: bottone verde-->
     </div>
 </div>
 
 <section class="cards clearfix">
-@foreach($excursions_list as $excursion)
-    <a class="card"  href="{{ route('escursione.info', ['id' => $excursion->id])}}">
-        <img class="card__img" src= "/img/20210612_125717.jpg">
-        <div class="card_copy">
+    @foreach($excursions_list as $excursion)
+        <a class="card"  href="{{ route('escursione.info', ['id' => $excursion->id])}}">
+        @php
+        $breakLoop = false;
+        @endphp
+        @foreach ($images as $image)
+            @if($image->escursione_id == $excursion->id)
+                <img class="card__img " src="{{asset('storage'.$image->path)}}">
+                @php
+                    $breakLoop=true;
+                @endphp
+                @break
+            @endif
+        @endforeach
+        @if($breakLoop == false)
+            <div class="card__img placeholder-image">NESSUNA IMMAGINE INSERITA</div>
+        @endif
+        
+    <div class="card_copy">
             <h3> {{$excursion->titolo }}</h3>
             <h4> {{ $excursion->tipologia->nome }}</h4>
             <h4> {{$excursion->gruppoMontuoso->nome }}</h4>
             <h4> {{$excursion->altitudine }} mt</h4>
             <p> {{$excursion->descrizione }} </p>
         </div>
-</a> 
+        </a> 
     @endforeach 
 </section>
 
