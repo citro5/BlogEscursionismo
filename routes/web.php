@@ -26,6 +26,8 @@ Route::middleware(['authCustom'])->group(function(){
     Route::resource('escursione', EscursioneController::class);
     Route::get('/escursione/{id}/destroy', [EscursioneController::class, 'destroy'])->name('escursione.destroy');
     Route::get('/escursione/{id}/destroy/confirm', [EscursioneController::class, 'confirmDestroy'])->name('escursione.destroy.confirm');
+    Route::get('/escursione/info/{id}', [EscursioneController::class, 'info'])->name('escursione.info');
+    Route::get('/difficoltà', [EscursioneController::class, 'difficulty']);
 });
 //Route::get('/escursione',[EscursioneController::class , 'index']) ->name('escursione.index');
 

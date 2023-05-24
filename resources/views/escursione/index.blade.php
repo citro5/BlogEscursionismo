@@ -24,15 +24,16 @@ style.css
 
 <section class="cards clearfix">
 @foreach($excursions_list as $excursion)
-    <div class="card">
-        <div class="card__img" style="background-image: url('http://afmarchetti.github.io/alux/image.jpg');"></div>
+    <a class="card"  href="{{ route('escursione.info', ['id' => $excursion->id])}}">
+        <img class="card__img" src= "/img/20210612_125717.jpg">
         <div class="card_copy">
-        <h3> {{$excursion->titolo }}</h3>
-        <h4> {{ $excursion->tipologia->nome }}</h4>
-        <h4> {{$excursion->gruppoMontuoso->nome }}</h4>
-        <h4> {{$excursion->altitudine }} mt</h4>
-    </div>
-    </div> 
+            <h3> {{$excursion->titolo }}</h3>
+            <h4> {{ $excursion->tipologia->nome }}</h4>
+            <h4> {{$excursion->gruppoMontuoso->nome }}</h4>
+            <h4> {{$excursion->altitudine }} mt</h4>
+            <p> {{$excursion->descrizione }} </p>
+        </div>
+</a> 
     @endforeach 
 </section>
 
@@ -71,4 +72,12 @@ style.css
         </table>
     </div>
 </div>
+<script>
+$(document).ready(function() {
+  $('.card').click(function() {
+    // Azione da eseguire al clic sulla card
+    window.location.href = '{{ route("escursione.info", ":id") }}'.replace(':id', escursioneId); // Sostituisci 'nuova-vista.html' con l'URL desiderato
+  });
+});
+</script>
 @endsection

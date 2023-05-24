@@ -14,6 +14,8 @@
     <script src="{{url('/')}}/js/bootstrap.bundle.min.js"></script>      <!-- Javascript -->
     <script src="http://code.jquery.com/jquery.js"></script>             <!-- prende la LIBRERIA JQUERY da quel sito-->
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>  <!-- galleria foto-->
+    <script src="https://kit.fontawesome.com/05e7f5a039.js" crossorigin="anonymous"></script> <!--icone -->
 </head>
 
 <body>
@@ -29,9 +31,9 @@
             </ul>
             <div class="header__quick">
                     @if($logged)
-                    <i class="bi bi-person-fill">&nbsp;{{$loggedName}}</i> <a class="button" href="{{route('user.logout')}}">Logout</a> 
+                    <i class="bi bi-person-fill">&nbsp;{{$loggedName}}</i> <a class="button" href="{{route('user.logout')}}">Logout&nbsp;<i class="bi-box-arrow-left"></i></a> 
                     @else
-                    <a class=" button" href="{{route('user.login')}}">Login</a>
+                    <a class=" button" href="{{route('user.login')}}"><i class="bi bi-door-open-fill"></i> &nbsp;Login</a>
                 <div class="icon-hamburger">
                     <span></span>
                     <span></span>
@@ -47,7 +49,6 @@
     </div>   
     
     @yield('corpo')
-    
     <footer class="footer col-100">
         <div class="grid">
             <div class="col-50 reveal">

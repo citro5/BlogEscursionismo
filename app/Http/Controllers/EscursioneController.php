@@ -16,12 +16,12 @@ class EscursioneController extends Controller
         $dl=new DataLayer();
         $tipology_list =$dl->listTipology();
         $group_list =$dl->listMountainGroup();
-        return view("escursione.editExcursion")->with("tipology_list", $tipology_list)->with("group_list", $group_list);
+        return view("escursione.editExcursion")->with("tipology_list", $tipology_list)->with("group_list", $group_list)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
     }
 
     public function store(Request $req){
         $dl = new DataLayer();
-        $dl->addExcursion($req->input('titolo'),$req->input('tipology_id'),$req->input('data'), $req->input('altitudine'),$req->input('tempistica'),$req->input('group_id'));
+        $dl->addExcursion($req->input('titolo'),$req->input('tipology_id'),$req->input('data'), $req->input('altitudine'),$req->input('tempistica'),$req->input('group_id'),$req->input('descrizione'),$req->file('images'));
         return Redirect::to(route('escursione.index'));
     }
     public function edit($id)
@@ -31,12 +31,12 @@ class EscursioneController extends Controller
         $excursion = $dl->findExcursionById($id);
         $tipology_list= $dl->listTipology();
         $group_list= $dl->listMountainGroup();
-        return view('escursione.editExcursion')->with('excursionList', $excursions_list)->with('excursion', $excursion)->with('tipology_list', $tipology_list)->with('group_list', $group_list);
+        return view('escursione.editExcursion')->with('excursionList', $excursions_list)->with('excursion', $excursion)->with('tipology_list', $tipology_list)->with('group_list', $group_list)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
     }
     public function update(Request $request, $id)
     {
         $dl = new DataLayer();
-        $dl-> editExcursion($id, $request->input('titolo'), $request->input('tipology_id'), $request->input('group_id'),$request->input('data'),$request->input('altitudine'),$request->input('tempistica'));
+        $dl-> editExcursion($id, $request->input('titolo'), $request->input('tipology_id'), $request->input('group_id'),$request->input('data'),$request->input('altitudine'),$request->input('tempistica'),$request->input('descrizione'),$request->file('images'));
         return Redirect::to(route('escursione.index'));
     }
     public function destroy($id)
@@ -55,10 +55,22 @@ class EscursioneController extends Controller
         $dl = new DataLayer();
         $excursion = $dl->findExcursionById($id);
         if ($excursion !== null) {
-            return view('escursione.deleteExcursion')->with('excursion', $excursion);
+            return view('escursione.deleteExcursion')->with('excursion', $excursion)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
         } else {
-            return view('escursione.deleteErrorPage');
+            return view('escursione.deleteErrorPage')->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
         }
+    }
+    public function info($id){
+        $dl=new DataLayer();
+        $excursion=$dl->findExcursionById($id);
+
+        $images=$dl->getExcursionImages($id);
+
+       return view('escursione.info')->with("images",$images)->with("excursion",$excursion)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
+    }
+
+    public function difficulty(){    
+        return view("escursione.difficoltà")->with('logged',true)->with('loggedName',$_SESSION['loggedName']);
     }
 }
 
