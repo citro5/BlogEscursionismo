@@ -17,6 +17,7 @@ return new class extends Migration
             $table -> increments('id');
             $table -> string('titolo');
             $table -> date('data')->format('d/m/Y');
+            $table -> text('descrizione');
             $table -> integer('altitudine')->unsigned();
             $table -> time('tempistica');
             $table -> integer('gruppo_id')->unsigned();

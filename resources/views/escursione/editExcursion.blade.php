@@ -29,10 +29,10 @@
 <div class='grid mb-2'>
     <div class='col-12'>
         @if(isset($excursion->id))
-        <form class="form-horizontal" name="excursion" method="post" action="{{ route('escursione.update', ['escursione' => $excursion->id]) }}">
+        <form class="form-horizontal" name="excursion" method="post" action="{{ route('escursione.update', ['escursione' => $excursion->id]) }}" enctype="multipart/form-data">
         @method('PUT')
         @else
-        <form class="form-horizontal" name="excursion" method="post" action="{{ route('escursione.store') }}">
+        <form class="form-horizontal" name="excursion" method="post" action="{{ route('escursione.store') }}" enctype="multipart/form-data">
         @endif
         @csrf
         <div class="form-group">  
@@ -95,10 +95,21 @@
             @endif
             </label>
         </div>
-        <!--<div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFile">
-            <label class="btn custom-file-label" for="customFile">Scegli foto</label>
-        </div> -->
+        <div class="form-group">
+            <label>Descrizione
+            @if(isset($excursion->id))
+            <textarea class="form-control" rows="3" cols="150" name="descrizione" placeholder="Descrizione" required>{{$excursion->descrizione}}</textarea>
+            @else
+            <textarea class="form-control"  rows="3" cols="150" name="descrizione" placeholder="Descrizione" required></textarea>   
+            @endif
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="images" class="form-label">Immagini escursione
+                <input class="form-control" id="images" type="file" name="images[]"  multiple/>
+            </label>    
+        </div>
+
         
         <a href="{{ route('escursione.index') }}" class="btn btn-secondary"><i class="bi-box-arrow-left"></i> Cancel</a>
             @if(isset($excursion->id))
@@ -130,5 +141,6 @@
         })
     })
     </script>
+</div>
 </div>
 @endsection   

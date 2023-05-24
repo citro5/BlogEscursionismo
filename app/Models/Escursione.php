@@ -20,4 +20,8 @@ class Escursione extends Model
     public function tipologia(){
         return $this->belongsTo(Tipologia::class,'tipologia_id','id');
     }
+    public function immagini(){
+        return $this-> hasMany(Immagini::class,'img_id','id');
+
+    }
 }
