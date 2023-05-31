@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DataLayer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -19,8 +20,11 @@ class AuthController extends Controller
             $_SESSION['loggedName']=$dl->getUserName($req->input('email'));
             $_SESSION['email']=$req->input('email');
             return Redirect::to(route('escursione.index'));
+        } else {
+            Session::flash('error', 'Credenziali errate. Riprova.');             // credenziali errate: memorizza un messaggio di errore nella sessione che sarà recuperato nella vista del login in modo da mandare messaggio di errore
+            return redirect()->route('user.login')->withInput();
         }
-        return view('auth.authErrorPage');
+
     }
     
     public function logout(){

@@ -38,7 +38,10 @@
             <div class="field">
               <input type="password" name ="password" placeholder="Password" required>
             </div>
-            <div class="pass-link"><a href="#">Password dimenticata?</a></div>
+            <!-- <div class="pass-link"><a href="#">Password dimenticata?</a></div> -->
+            @if (session('error'))
+              <div class="error-message">{{ session('error') }}</div>
+            @endif
             <div class="field btn">
               <div class="btn-layer"></div>
               <input id="Login" type="submit" value="Accedi">

@@ -371,16 +371,16 @@ div#menu li li { border:none; width:150px; }
 
 body.login{
   display: grid;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   place-items: center;
   background: url('/img/aviolo.jpg'), linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
-background-repeat: no-repeat;
-background-size:cover  !important; 
+  background-repeat: no-repeat;
+  background-size:cover  !important; 
 }
 
 ::selection{
-  background: #fa4299;
+  background:  #e49a6f;
   color: #fff;
 }
 .wrapper{
@@ -475,8 +475,7 @@ input[type="radio"]{
 .form-inner form .field{
   height: 50px;
   width: 100%;
-  margin-top: 20px;
-
+  margin-top: 23px;
 }
 .form-inner form .field input{
   height: 100%;
@@ -490,8 +489,8 @@ input[type="radio"]{
   transition: all 0.3s ease;
 }
 .form-inner form .field input:focus{
-  border-color: #fc83bb;
-  /* box-shadow: inset 0 0 3px #fb6aae; */
+  border-color:#cf7f51;
+   box-shadow: inset 0 0 3px #cf7f51; 
 }
 .form-inner form .field input::placeholder{
   color: #999;
@@ -561,6 +560,20 @@ form .btn input[type="submit"]{
   display: flex;
   justify-content: center;
   align-items: center;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ff5722;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+#buttonNew:hover {
+  background-color: #ff8a65;
 }
 .empty-indicator {
   position: absolute;
@@ -571,9 +584,13 @@ form .btn input[type="submit"]{
   transition: opacity 0.3s;
 }
 .invalid-input{
-  color: red;
-  font-style: italic;
-  margin-top: 5px;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  
+  
 }
 
 /* SMARTPHONE */
@@ -604,15 +621,36 @@ form .btn input[type="submit"]{
 }
 
 .escursione-titolo h1 {
-  margin: 0;
-  font: 100% Montserrat,sans-serif;
-  font-size: 35px;
-  font-weight: bold;
+ text-align: center;
+  font-family: "Arial Black", sans-serif;
+  font-size: 36px;
   color: #333;
-  text-align: center;
-  padding: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  position: relative;
+  padding-top: 30px;
 }
-
+.escursione-titolo h1::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: #1d1917;
+}
+.escursione-titolo h1::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100px;
+  height: 3px;
+  background-color: #161312;
+}
 .escursione-immagine img {
   width: 100%;
   max-height: 300px;
@@ -805,9 +843,6 @@ p.heading {
 }
 .content-section .text {
   padding: 50px;
-
-
-
 }
 .table-responsive {
   min-height: .01%;
@@ -880,3 +915,38 @@ table td {
   margin-left: -15px
 }
 
+.error-message {
+  background-color: #f44336;
+  color: #fff;
+  padding: 12px;
+  margin-top: 5px;
+  border-radius: 6px;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.date-picker {
+  position: relative;
+}
+
+.date-picker input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 250px;
+}
+
+.date-picker i {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #aaa;
+  cursor: pointer;
+}
+
+.date-picker i:hover {
+  color: #777;
+}

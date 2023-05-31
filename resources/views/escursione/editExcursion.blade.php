@@ -40,13 +40,13 @@
             @if(isset($excursion->id))
                 <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Titolo" value="{{ $excursion->titolo }}" required>
             @else
-                <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Titolo">
+                <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Titolo" required>
             @endif 
         </div>
         
         <div class="form-group">
             <label for="author">Tipologia</label>
-            <select class="form-select" id="tipology_id" name="tipology_id">
+            <select class="form-select" id="tipology_id" name="tipology_id" required>
                 @foreach($tipology_list as $tipology)
                     @if((isset($excursion->id))&&($tipology->id == $excursion->tipology_id))
                         <option value="{{ $tipology->id }}" selected="selected"> {{$tipology->nome}}</option>
@@ -59,7 +59,7 @@
         
         <div class="form-group">
             <label for="author">Gruppo montuoso</label>
-            <select class="form-select" id="group_id" name="group_id">
+            <select class="form-select" id="group_id" name="group_id" required>
                 @foreach($group_list as $group)
                     @if((isset($excursion->id))&&($group->id == $excursion->gruppo_id))
                     <option value="{{ $group->id }}" selected="selected"> {{$group->nome}}</option>
@@ -72,18 +72,20 @@
         <div class="form-group"> <!-- Date input -->
             <label class="control-label" for="data">Data</label>
             @if(isset($excursion->id))
-            <input class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" type="text" value="{{$excursion->data}}"/>
+            <input class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" type="date" value="{{$excursion->data}}" required/>
             @else
-            <input class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" type="text"/>
+            <input class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" type="text" required/>
             @endif
         </div>
         <div class="form-group">
             <label>Altitudine
             @if(isset($excursion->id))
-                <input class="form-control" type="text" name="altitudine" placeholder="Altitudine" value="{{$excursion->altitudine}}"required>
-            @else
-                <input class="form-control" type="text" name="altitudine" required>
-            @endif
+                <input class="form-control" id="numero-input" type="number" name="altitudine" maxlenght="5" placeholder="Altitudine" value="{{$excursion->altitudine}}"required>
+                <div id="numero-error" style="color: red;"></div>
+                @else
+                <input class="form-control" id="numero-input"  type="number" name="altitudine" maxlength="5" required>
+                <div id="numero-error" style="color: red;"></div>
+                @endif
             </label>
         </div>
         <div class="form-group">
@@ -106,7 +108,7 @@
         </div>
         <div class="form-group">
             <label for="images" class="form-label">Immagini escursione
-                <input class="form-control" id="images" type="file" name="images[]"  multiple/>
+                <input class="form-control" id="images" type="file" name="images[]" accept="image/*" multiple/>
             </label>    
         </div>
 
@@ -121,8 +123,7 @@
             @endif
 
     </form>
-    <!-- Include jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
 
     <!-- Include Date Range Picker -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
@@ -131,7 +132,7 @@
     <script>
     $(document).ready(function(){
         var date_input=$('input[name="data"]'); //our date input has the name "data"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        var container=$('.bootstrap-iso form').length=0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
             format: 'yyyy/mm/dd',
             container: container,
@@ -141,6 +142,21 @@
         })
     })
     </script>
+
+<script>
+$(document).ready(function() {
+  $('#numero-input').on('input', function() {
+    var numero = $(this).val();
+
+    if (!(/^\d{0,5}$/.test(numero))) {
+      $('#numero-error').text('Inserire un numero con al massimo 5 cifre.');
+    } else {
+      $('#numero-error').text('');
+    }
+  });
+});
+</script>
+
 </div>
 </div>
 @endsection   
