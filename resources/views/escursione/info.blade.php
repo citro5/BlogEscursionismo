@@ -26,7 +26,7 @@ Dettagli escursione
 
   <div class="escursione-descrizione">
     <h3 class="title">Descrizione</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum fringilla elit, at consectetur neque consequat at. Mauris eu tellus quis magna egestas facilisis in ac urna.</p>
+    <p>{{$excursion -> descrizione}}</p>
   </div>
 
   <div class="row margin-leftright-null grey-background">

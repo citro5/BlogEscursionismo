@@ -29,7 +29,7 @@
 <div class='grid mb-2'>
     <div class='col-12'>
         @if(isset($excursion->id))
-        <form class="form-horizontal" name="excursion" method="post" action="{{ route('escursione.update', ['escursione' => $excursion->id]) }}" enctype="multipart/form-data">
+        <form class="form-horizontal" name="excursion" method="post" action="{{ route('escursione.update', ['id' => $excursion->id]) }}" enctype="multipart/form-data">
         @method('PUT')
         @else
         <form class="form-horizontal" name="excursion" method="post" action="{{ route('escursione.store') }}" enctype="multipart/form-data">
@@ -72,7 +72,7 @@
         <div class="form-group"> <!-- Date input -->
             <label class="control-label" for="data">Data</label>
             @if(isset($excursion->id))
-            <input class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" type="date" value="{{$excursion->data}}" required/>
+            <input class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" type="text" value="{{$excursion->data}}" required/>
             @else
             <input class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" type="text" required/>
             @endif

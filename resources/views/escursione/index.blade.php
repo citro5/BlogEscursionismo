@@ -20,12 +20,13 @@ style.css
 <div class="container text text-center mt-2">
     <h1 class="mb-5 title" ><span>Lista delle escursioni</span></h1>
 </div>
+@if($logged == true)
 <div class="grid grid--center">
     <div>   
         <a id= "buttonNew" href="{{route('escursione.create')}}" class="btn btn-success">Crea una nuova escursione</a> <!--btn:bottone, btn-success: bottone verde-->
     </div>
 </div>
-
+@endif
 <section class="cards clearfix">
     @foreach($excursions_list as $excursion)
         <a class="card"  href="{{ route('escursione.info', ['id' => $excursion->id])}}">
@@ -51,8 +52,8 @@ style.css
             <h4> {{$excursion->gruppoMontuoso->nome }}</h4>
             <h4> {{$excursion->altitudine }} mt</h4>
             <p> {{$excursion->descrizione }} </p>
-        </div>
-        </a> 
+        </div>           
+        </a>
     @endforeach 
 </section>
 
@@ -78,12 +79,14 @@ style.css
                         <td>{{ $excursion->titolo }}</td>
                         <td>{{ $excursion->data }}</td>
                         <td>{{ $excursion->tipologia->nome }}</td>
+                        @if($logged == true)
                         <td>
-                            <a class="btn btn-primary"  href="{{ route('escursione.edit', ['escursione' => $excursion->id]) }}"><i class="bi-pencil-square"></i>Edit</a>   <!-- btn blu-->
+                            <a class="btn btn-primary"  href="{{ route('escursione.edit', ['id' => $excursion->id]) }}"><i class="bi-pencil-square"></i>Edit</a>   <!-- btn blu-->
                         </td>
                         <td>
                             <a class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter" href="{{ route('escursione.destroy.confirm', ['id' => $excursion->id]) }}"><i class="bi-trash3"></i>Delete</a>  <!-- btn rosso-->
                         </td>
+                        @endif
                     </tr>
                     @endforeach
                     

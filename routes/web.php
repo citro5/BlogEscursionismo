@@ -22,12 +22,20 @@ Route::post('/user/register',[AuthController::class, 'registration'])->name('use
 Route::get('/user/logout',[AuthController::class, 'logout'])->name('user.logout');
 Route::get('/registrationEmailCheck', [AuthController::class, 'registrationCheckForEmail']);
 
+Route::get('/escursione',[EscursioneController::class,'index'])->name('escursione.index');
+Route::get('/escursione/info/{id}', [EscursioneController::class, 'info'])->name('escursione.info');
+Route::get('/difficoltà', [EscursioneController::class, 'difficulty']);
+
+// Rotte per utente registrato
 Route::middleware(['authCustom'])->group(function(){
-    Route::resource('escursione', EscursioneController::class);
+    //Route::resource('escursione', EscursioneController::class);
+    Route::get('/escursione/create',[EscursioneController::class, 'create'])->name('escursione.create');
+    Route::put('/escursione/{id}',[EscursioneController::class, 'update'])->name('escursione.update');
+    Route::post('/escursione',[EscursioneController::class, 'store'])->name('escursione.store');
+    Route::get('/escursione/{id}/edit',[EscursioneController::class, 'edit'])->name('escursione.edit');
     Route::get('/escursione/{id}/destroy', [EscursioneController::class, 'destroy'])->name('escursione.destroy');
     Route::get('/escursione/{id}/destroy/confirm', [EscursioneController::class, 'confirmDestroy'])->name('escursione.destroy.confirm');
-    Route::get('/escursione/info/{id}', [EscursioneController::class, 'info'])->name('escursione.info');
-    Route::get('/difficoltà', [EscursioneController::class, 'difficulty']);
+    
 });
 //Route::get('/escursione',[EscursioneController::class , 'index']) ->name('escursione.index');
 

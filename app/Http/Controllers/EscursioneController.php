@@ -8,10 +8,15 @@ use Illuminate\Support\Facades\Redirect;
 class EscursioneController extends Controller
 {
     public function index(){
+        session_start();
         $dl=new DataLayer();                                 //array di escursioni
         $excursions_list =$dl->listExcursions();                 //invoca la vista con l'array
         $images=$dl->listExcursionImages();
-        return view("escursione.index")->with("excursions_list", $excursions_list)->with('logged',true)->with('loggedName',$_SESSION['loggedName'])->with('images',$images); 
+        if(isset($_SESSION['loggedName'])){
+            return view("escursione.index")->with("excursions_list", $excursions_list)->with('logged',true)->with('loggedName',$_SESSION['loggedName'])->with('images',$images); 
+        } else {
+            return view("escursione.index")->with("excursions_list", $excursions_list)->with('logged',false)->with('loggedName',"")->with('images',$images); 
+        }
     }
     public function create(){
         $dl=new DataLayer();
@@ -62,16 +67,24 @@ class EscursioneController extends Controller
         }
     }
     public function info($id){
+        session_start();
         $dl=new DataLayer();
         $excursion=$dl->findExcursionById($id);
 
         $images=$dl->getExcursionImages($id);
-
-       return view('escursione.info')->with("images",$images)->with("excursion",$excursion)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
+        if(isset($_SESSION['loggedName'])){
+            return view('escursione.info')->with("images",$images)->with("excursion",$excursion)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
+        } else {
+            return view('escursione.info')->with("images",$images)->with("excursion",$excursion)->with('logged', false)->with('loggedName', "");
+        }
     }
 
     public function difficulty(){    
-        return view("escursione.difficoltà")->with('logged',true)->with('loggedName',$_SESSION['loggedName']);
+        if(isset($_SESSION['loggedName'])){
+            return view("escursione.difficoltà")->with('logged',true)->with('loggedName',$_SESSION['loggedName']);
+        } else {
+            return view("escursione.difficoltà")->with('logged',false)->with('loggedName',"");
+        }
     }
 }
 
