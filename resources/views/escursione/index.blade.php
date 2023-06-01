@@ -16,7 +16,6 @@ style.css
 @endsection
 
 @section('corpo')
-
 <div class="container text text-center mt-2">
     <h1 class="mb-5 title" ><span>Lista delle escursioni</span></h1>
 </div>
@@ -48,10 +47,11 @@ style.css
         
     <div class="card_copy">
             <h3> {{$excursion->titolo }}</h3>
-            <h4> {{ $excursion->tipologia->nome }}</h4>
-            <h4> {{$excursion->gruppoMontuoso->nome }}</h4>
-            <h4> {{$excursion->altitudine }} mt</h4>
-            <p> {{$excursion->descrizione }} </p>
+            <h4> <b>Tipologia:</b> {{ $excursion->tipologia->nome }}</h4>
+            <h4> <b>Gruppo Montuoso:</b> {{$excursion->gruppoMontuoso->nome }}</h4>
+            <h4> <b>Altitudine:</b> {{$excursion->altitudine }} mt</h4>
+            <br></br>
+            <p> <b>Creato da:</b> {{ $excursion -> user -> name}} </p>
         </div>           
         </a>
     @endforeach 

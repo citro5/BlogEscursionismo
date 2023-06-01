@@ -27,7 +27,7 @@ class EscursioneController extends Controller
 
     public function store(Request $req){
         $dl = new DataLayer();
-        $dl->addExcursion($req->input('titolo'),$req->input('tipology_id'),$req->input('data'), $req->input('altitudine'),$req->input('tempistica'),$req->input('group_id'),$req->input('descrizione'),$req->file('images'));
+        $dl->addExcursion($req->input('titolo'),$req->input('tipology_id'),$req->input('data'), $req->input('altitudine'),$req->input('tempistica'),$req->input('group_id'),$req->input('descrizione'),$req->file('images'),$_SESSION["user_id"]);
         return Redirect::to(route('escursione.index'));
     }
     public function edit($id)

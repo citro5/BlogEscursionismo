@@ -24,7 +24,7 @@ Route::get('/registrationEmailCheck', [AuthController::class, 'registrationCheck
 
 Route::get('/escursione',[EscursioneController::class,'index'])->name('escursione.index');
 Route::get('/escursione/info/{id}', [EscursioneController::class, 'info'])->name('escursione.info');
-Route::get('/difficoltà', [EscursioneController::class, 'difficulty']);
+Route::get('/difficoltà', [EscursioneController::class, 'difficulty'])->name('difficoltà');
 
 // Rotte per utente registrato
 Route::middleware(['authCustom'])->group(function(){

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Escursione;
 use App\Models\GruppoMontuoso;
+use App\Models\Tipologia;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,10 +17,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        GruppoMontuoso::factory()->count(100)->create()->each(function($gruppo){
-            Escursione::factory()->count(1)->create(['gruppo_id'=> $gruppo->id]);            //in create imposto il vincolo di chiave
-        }); 
-        //Escursione::factory()->count(100)->create(['gruppo_id'=>rand(1,5)]);
-        
+        $gruppi = ['Adamello', 'Bernina', 'Ortles-Cevedale'];
+        $tipologie= ['escursionismo', 'alpinismo', 'via ferrata'];
+        foreach ($gruppi as $nome) {
+            GruppoMontuoso::create([
+                'nome' => $nome
+            ]);
+        }
+
+        foreach ($tipologie as $nome) {
+            Tipologia::create([
+                'nome' => $nome
+            ]);
+        }
     }
 }

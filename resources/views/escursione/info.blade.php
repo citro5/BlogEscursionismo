@@ -16,14 +16,17 @@ Dettagli escursione
 </nav>
 @endsection
 
-
-
 @section('corpo')
 <div class="escursione">
   <div class="escursione-titolo">
     <h1>{{$excursion->titolo}}</h1>
   </div>
-
+@if($excursion-> user-> name == $loggedName)
+  <div class="grid grid--center">
+    <a class="button-modify mt-3 mr-1"  href="{{ route('escursione.edit', ['id' => $excursion->id]) }}"><i class="bi-pencil-square"></i>Modifica</a>   <!-- btn blu-->
+    <a class="button-delete mt-3" data-toggle="modal" data-target="#exampleModalCenter" href="{{ route('escursione.destroy.confirm', ['id' => $excursion->id]) }}"><i class="bi-trash3"></i>Elimina</a>  <!-- btn rosso-->
+  </div>
+@endif
   <div class="escursione-descrizione">
     <h3 class="title">Descrizione</h3>
     <p>{{$excursion -> descrizione}}</p>

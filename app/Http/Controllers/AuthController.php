@@ -18,6 +18,7 @@ class AuthController extends Controller
         if($dl->validUser($req->input('email'),$req->input('password'))){
             $_SESSION['logged']=true;
             $_SESSION['loggedName']=$dl->getUserName($req->input('email'));
+            $_SESSION['user_id']=$dl->getUserId($req->input('email'));
             $_SESSION['email']=$req->input('email');
             return Redirect::to(route('escursione.index'));
         } else {

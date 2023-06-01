@@ -21,7 +21,7 @@ class DataLayer {
     public function findExcursionById($id) {
         return Escursione::find($id);
     }
-    public function addExcursion($titolo, $tipologia_id, $data, $altitudine, $tempistica, $gruppo_id,$descrizione,$img){
+    public function addExcursion($titolo, $tipologia_id, $data, $altitudine, $tempistica, $gruppo_id,$descrizione,$img,$user_id){
         $excursion = new Escursione;
         $excursion -> titolo = $titolo;
         $excursion -> tipologia_id = $tipologia_id;
@@ -30,6 +30,7 @@ class DataLayer {
         $excursion -> tempistica = $tempistica;
         $excursion -> gruppo_id = $gruppo_id;
         $excursion -> descrizione = $descrizione;
+        $excursion -> user_id = $user_id;
         $excursion -> save();
 
         if (isset($img)){
