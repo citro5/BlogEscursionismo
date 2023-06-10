@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tipologia;
 use Illuminate\Http\Request;
 use App\Models\DataLayer;
 use Illuminate\Support\Facades\Redirect;
@@ -27,7 +28,7 @@ class EscursioneController extends Controller
 
     public function store(Request $req){
         $dl = new DataLayer();
-        $dl->addExcursion($req->input('titolo'),$req->input('tipology_id'),$req->input('data'), $req->input('altitudine'),$req->input('tempistica'),$req->input('group_id'),$req->input('descrizione'),$req->file('images'),$_SESSION["user_id"]);
+        $dl->addExcursion($req->input('titolo'),$req->input('tipology_id'),$req->input('difficulty'),$req->input('data'), $req->input('altitudine'),$req->input('tempistica'),$req->input('group_id'),$req->input('descrizione'),$req->file('images'),$_SESSION["user_id"]);
         return Redirect::to(route('escursione.index'));
     }
     public function edit($id)
@@ -42,7 +43,7 @@ class EscursioneController extends Controller
     public function update(Request $request, $id)
     {
         $dl = new DataLayer();
-        $dl-> editExcursion($id, $request->input('titolo'), $request->input('tipology_id'), $request->input('group_id'),$request->input('data'),$request->input('altitudine'),$request->input('tempistica'),$request->input('descrizione'),$request->file('images'));
+        $dl-> editExcursion($id, $request->input('titolo'), $request->input('tipology_id'),$request->input('difficulty'), $request->input('group_id'),$request->input('data'),$request->input('altitudine'),$request->input('tempistica'),$request->input('descrizione'),$request->file('images'));
         return Redirect::to(route('escursione.index'));
     }
     public function destroy($id)
@@ -85,6 +86,19 @@ class EscursioneController extends Controller
         } else {
             return view("escursione.difficoltà")->with('logged',false)->with('loggedName',"");
         }
+    }
+
+    public function getDifficolta(Request $request)
+    {
+        $dl=new DataLayer();
+        $risultato= $dl->getDifficulty($request->input('tipologia'));
+        
+        $response = [
+            'difficolta' => $risultato
+        ];
+        
+        return response()->json($response);
+        
     }
 }
 

@@ -21,10 +21,11 @@ class DataLayer {
     public function findExcursionById($id) {
         return Escursione::find($id);
     }
-    public function addExcursion($titolo, $tipologia_id, $data, $altitudine, $tempistica, $gruppo_id,$descrizione,$img,$user_id){
+    public function addExcursion($titolo, $tipologia_id,$difficoltà, $data, $altitudine, $tempistica, $gruppo_id,$descrizione,$img,$user_id){
         $excursion = new Escursione;
         $excursion -> titolo = $titolo;
         $excursion -> tipologia_id = $tipologia_id;
+        $excursion -> difficoltà = $difficoltà;
         $excursion -> data = $data;
         $excursion -> altitudine = $altitudine;
         $excursion -> tempistica = $tempistica;
@@ -40,10 +41,11 @@ class DataLayer {
         }
         
     }
-    public function editExcursion($id,$titolo, $tipologia_id,$gruppo_id, $data, $altitudine, $tempistica,$descrizione,$img) {
+    public function editExcursion($id,$titolo, $tipologia_id,$difficoltà,$gruppo_id, $data, $altitudine, $tempistica,$descrizione,$img) {
         $excursion = Escursione::find($id);
         $excursion -> titolo = $titolo;
         $excursion -> tipologia_id = $tipologia_id;
+        $excursion -> difficoltà = $difficoltà;
         $excursion -> gruppo_id = $gruppo_id;
         $excursion -> data = $data;
         $excursion -> altitudine = $altitudine;
@@ -102,6 +104,14 @@ class DataLayer {
             return true;
         }
     }
+    public function checkUsername($username) {
+        $users = User::where('name',$username)->get();
+        if (count($users) == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     public function uploadImage($image,$excursion):void{
         $v = Immagini::count()+1;
         $i=new Immagini();
@@ -110,6 +120,11 @@ class DataLayer {
         $i->save();
 
         $image->storeAs('public/img/upload',$excursion->id.$v.'.png');
+    }
+
+    public function getDifficulty($tipologia){
+       $difficulty= Difficoltà::where('tipologia_id',$tipologia)->get('grado_difficoltà');
+       return $difficulty;
     }
     
 };

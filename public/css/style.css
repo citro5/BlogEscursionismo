@@ -1002,3 +1002,9 @@ table td {
 .date-picker i:hover {
   color: #777;
 }
+select option[disabled] {
+  color: #999;
+  font-style: italic;
+  background-color: #f7f7f7;
+  padding: 5px;
+}

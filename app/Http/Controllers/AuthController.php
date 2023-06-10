@@ -51,4 +51,16 @@ class AuthController extends Controller
         }
         return response()->json($response);
     }
+
+    public function registrationCheckForUsername(Request $req) {
+        $dl = new DataLayer();
+        
+        if($dl-> checkUsername($req->input('username')))
+        {
+            $response = array('found'=>true);
+        } else {
+            $response = array('found'=>false);
+        }
+        return response()->json($response);
+    }
 }

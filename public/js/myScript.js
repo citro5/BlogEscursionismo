@@ -9,17 +9,19 @@ function checkRegistrationData() {
     regPasswd_msg = $("#invalid-registrationPasswd");
     passwdConfirm_msg = $("#invalid-passwdConfirm");
 
-    var emailRegularExpression = new RegExp(/^[A-Za-z0-9]+(\.[A-Za-z0-9]+)*@[A-Za-z0-9-]+\.[A-Za-z]{2,3}$/, "g");
+    var emailRegularExpression = new RegExp(/^[A-Za-z0-9]+(\.[A-Za-z0-9]+)*@[A-Za-z0-9-]+\.[A-Za-z]{2,3}$/, "g");    //.[A-Za-z]{2,3} - punto seguito da due o tre lettere maiuscole o minuscole che rappresentano l'estensione del dominio (ad esempio .com, .net, .org).  $/ Termina la corrispondenza alla fine della stringa.
+    var usernameRegularExpression = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     error = false;
 
-    if (registrationUsername.val().trim() === "")
+    if (registrationUsername.val().trim() === "")               //val() per ottenere il valore attuale del campo. Trim() per rimuovere eventuali spazi vuoti all'inizio e alla fine del valore ottenuto.
     {
         regName_msg.html("Inserisci un username");
-        registrationUsername.focus();
+        registrationUsername.focus();                           //l'elemento di input ottiene il focus e diventa l'elemento attivo, pronto per l'interazione dell'utente.
         error = true;
     } else {
         regName_msg.html("");
     }
+
 
     if (registrationEmail.val().trim() === "")
     {
@@ -37,8 +39,8 @@ function checkRegistrationData() {
     {
         regPasswd_msg.html("Inserisci una password");
         error = true;
-    } else if(registrationPasswd.val().length < 8) {
-        regPasswd_msg.html("Minimo 8 caratteri");
+    } else if(!registrationPasswd.val().match(usernameRegularExpression) ) {
+        regPasswd_msg.html("Minimo 8 caratteri tra cui una lettera e una cifra");
         error = true;
     } else {
         regPasswd_msg.html("");
@@ -52,24 +54,33 @@ function checkRegistrationData() {
         passwdConfirm_msg.html("");
     }
 
-    if(!error) {
-        $.ajax('/registrationEmailCheck', {
+    if (!error) {
+        var usernameCheck = $.ajax('/registrationUsernameCheck', {
+          method: 'GET',
+          data: { username: registrationUsername.val().trim() }
+        });
+      
+        var emailCheck = $.ajax('/registrationEmailCheck', {
+          method: 'GET',
+          data: { email: registrationEmail.val().trim() }
+        });
+      
+        $.when(usernameCheck, emailCheck).done(function(usernameResult, emailResult) {
+          if (usernameResult[0].found) {
+            error = true;
+            regName_msg.html("Username già in uso");
+          }
+      
+          if (emailResult[0].found) {
+            error = true;
+            regEmail_msg.html("Email già in uso");
+          }
+      
+          if (!error) {
+            $('form[id=register-form]').submit();
+          }
+        });
+      }
 
-            method: 'GET',
-
-            data: {email: registrationEmail.val().trim()},
-
-            success: function (result) {
-
-                if (result.found)
-                {
-                    error = true;
-                    regEmail_msg.html("Email già in uso");
-                } else {
-                    $('form[id=register-form]').submit();
-                }
-            }
-
-        });   
-    }
+   
 }

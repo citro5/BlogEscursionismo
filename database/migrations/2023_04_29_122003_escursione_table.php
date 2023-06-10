@@ -22,12 +22,13 @@ return new class extends Migration
             $table -> time('tempistica');
             $table -> integer('gruppo_id')->unsigned();
             $table -> integer('tipologia_id')->unsigned();
-            $table-> bigInteger('user_id')->unsigned();
+            $table -> string('difficoltà');
+            $table -> bigInteger('user_id')->unsigned();
         });
         Schema::table('escursione',function(Blueprint $table){
-            $table->foreign('gruppo_id')->references('id')->on('gruppoMontuoso');
-            $table->foreign('tipologia_id')->references('id')->on('tipologia');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table -> foreign('gruppo_id')->references('id')->on('gruppoMontuoso');
+            $table -> foreign('tipologia_id')->references('id')->on('tipologia');
+            $table -> foreign('user_id')->references('id')->on('users');
         });
     }
 

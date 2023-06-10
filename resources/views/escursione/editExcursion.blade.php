@@ -35,8 +35,9 @@
         <form class="form-horizontal" name="excursion" method="post" action="{{ route('escursione.store') }}" enctype="multipart/form-data">
         @endif
         @csrf
+        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         <div class="form-group">  
-            <label for="title"> Titolo</label>
+            <label for="titolo"> Titolo</label>
             @if(isset($excursion->id))
                 <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Titolo" value="{{ $excursion->titolo }}" required>
             @else
@@ -45,20 +46,47 @@
         </div>
         
         <div class="form-group">
-            <label for="author">Tipologia</label>
+            <label for="tipology_id">Tipologia</label>
             <select class="form-select" id="tipology_id" name="tipology_id" required>
-                @foreach($tipology_list as $tipology)
-                    @if((isset($excursion->id))&&($tipology->id == $excursion->tipology_id))
-                        <option value="{{ $tipology->id }}" selected="selected"> {{$tipology->nome}}</option>
+            <option value="" selected disabled hidden>Seleziona una tipologia</option>  
+            @foreach($tipology_list as $tipology)
+                    @if((isset($excursion->id))&&($tipology->id == $excursion->tipologia_id))
+                    <option value="{{ $tipology->id }}" selected="selected"> {{$tipology->nome}}</option>
                     @else
+                    
                     <option value="{{ $tipology->id }}"> {{$tipology->nome}}</option>
                     @endif    
                 @endforeach
             </select>
         </div> 
+
+        <div class="form-group">
+            <label for="difficulty_id">Grado di difficoltà</label>
+            <select class="form-select" id="difficulty" name="difficulty" disabled required>
+            @if(isset($excursion->id))
+            <script>
+                // Ritardo di 0.5 secondi in modo che carichi la lista dell difficoltà e mostri quella scelta
+                setTimeout(function() {
+                var selectElement = document.getElementById('difficulty');
+                if (typeof "{{ $excursion }}" !== 'undefined') {
+                var optionElement = document.createElement('option');
+                optionElement.id = 'difficoltà';
+                optionElement.value = "{{ $excursion->difficoltà }}";
+                optionElement.selected = true;
+                optionElement.textContent = "{{ $excursion->difficoltà }}";
+                selectElement.appendChild(optionElement);
+                } 
+                }, 500);
+                </script>
+                <option id="difficoltà" value="{{ $excursion->difficoltà }}" selected>{{ $excursion->difficoltà }}</option>
+            @else
+                <option value="" >Prima seleziona una tipologia </option>
+            @endif    
+        </select>
+        </div> 
         
         <div class="form-group">
-            <label for="author">Gruppo montuoso</label>
+            <label for="group_id">Gruppo montuoso</label>
             <select class="form-select" id="group_id" name="group_id" required>
                 @foreach($group_list as $group)
                     @if((isset($excursion->id))&&($group->id == $excursion->gruppo_id))
@@ -78,33 +106,33 @@
             @endif
         </div>
         <div class="form-group">
-            <label>Altitudine
+            <label for="altitudine">Altitudine</label>
             @if(isset($excursion->id))
-                <input class="form-control" id="numero-input" type="number" name="altitudine" maxlenght="5" placeholder="Altitudine" value="{{$excursion->altitudine}}"required>
+                <input class="form-control" id="numero-input" type="text" name="altitudine" pattern="[0-9]{1,5}" title="Inserisci al massimo 5 cifre numeriche" placeholder="Altitudine" value="{{$excursion->altitudine}}"required>
                 <div id="numero-error" style="color: red;"></div>
                 @else
-                <input class="form-control" id="numero-input"  type="number" name="altitudine" maxlength="5" required>
+                <input class="form-control" id="numero-input"  type="text" name="altitudine"pattern="[0-9]{1,5}" title="Inserisci al massimo 5 cifre numeriche" required>
                 <div id="numero-error" style="color: red;"></div>
                 @endif
-            </label>
+            
         </div>
         <div class="form-group">
-            <label>Tempo impiegato
+            <label for="tempistica">Tempo impiegato</label>
             @if(isset($excursion->id))
-                <input class="form-control" type="time" name="tempistica" placeholder="Tempo impiegato" value="{{$excursion->tempistica}}">
+                <input class="form-control" id="tempo-input" type="time" name="tempistica" placeholder="Tempo impiegato" value="{{$excursion->tempistica}}">
             @else
-            <input class="form-control" type="time" name="tempistica" placeholder="Tempo impiegato" required>    
+            <input class="form-control" id="tempo-input" type="time" name="tempistica" placeholder="Tempo impiegato" required>    
             @endif
-            </label>
+            
         </div>
         <div class="form-group">
-            <label>Descrizione
+            <label for="descrizione">Descrizione</label>
             @if(isset($excursion->id))
             <textarea class="form-control" rows="3" cols="150" name="descrizione" placeholder="Descrizione" required>{{$excursion->descrizione}}</textarea>
             @else
             <textarea class="form-control"  rows="3" cols="150" name="descrizione" placeholder="Descrizione" required></textarea>   
             @endif
-            </label>
+            
         </div>
         <div class="form-group">
             <label for="images" class="form-label">Immagini escursione
@@ -112,7 +140,6 @@
             </label>    
         </div>
 
-        
         <a href="{{ route('escursione.index') }}" class="btn btn-secondary"><i class="bi-box-arrow-left"></i> Cancel</a>
             @if(isset($excursion->id))
             <label for="mySubmit" class="btn btn-primary"><i class="bi-check-lg"></i> Salva</label>
@@ -143,19 +170,38 @@
     })
     </script>
 
-<script>
-$(document).ready(function() {
-  $('#numero-input').on('input', function() {
-    var numero = $(this).val();
+    <script>
 
-    if (!(/^\d{0,5}$/.test(numero))) {
-      $('#numero-error').text('Inserire un numero con al massimo 5 cifre.');
-    } else {
-      $('#numero-error').text('');
-    }
-  });
+$(document).ready(function() {
+  // Gestisci l'evento di cambio della tipologia
+  $('#tipology_id').on('change', function() {
+    var tipologiaSelezionata = $(this).val().trim();
+    // Rimuovi tutte le opzioni del menu a tendina delle difficoltà
+    $('#difficulty').empty();
+    if (tipologiaSelezionata !== "") {
+      // Effettua la richiesta AJAX per ottenere le difficoltà associate alla tipologia
+      $.ajax({
+        url: '/getDifficulty',
+        method: 'GET',
+        headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
+        data: {tipologia: tipologiaSelezionata},
+        success: function(result) {
+          // Aggiungi le opzioni al menu a tendina delle difficoltà
+          $('#difficulty').prop('disabled', false);
+          $.each(result.difficolta, function(index, difficoltà) { 
+          $('#difficulty').append($('<option>', {
+                value:difficoltà.grado_difficoltà,
+                text:difficoltà.grado_difficoltà
+            }));
+        });
+      }
+    })
+  }}).trigger('change');     //prende anche il valore iniziale, non solo quando cambia
 });
-</script>
+
+        </script>
+
+
 
 </div>
 </div>

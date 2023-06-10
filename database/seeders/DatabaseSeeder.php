@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Difficoltà;
 use App\Models\Escursione;
 use App\Models\GruppoMontuoso;
 use App\Models\Tipologia;
@@ -19,6 +20,10 @@ class DatabaseSeeder extends Seeder
     {
         $gruppi = ['Adamello', 'Bernina', 'Ortles-Cevedale'];
         $tipologie= ['escursionismo', 'alpinismo', 'via ferrata'];
+        $difficoltàEscursione= ['T', 'E' ,'EE' ,'EEA'];
+        $difficoltàAlpinismo= ['F','F+','PD-','PD','PD+', 'AD-','AD','AD+','D-','D','D+','TD-','TD','TD+','ED-','ED','ED+'];
+        $difficoltàFerrate= ['F', 'MD' ,'D' ,'TD','ED'];
+        
         foreach ($gruppi as $nome) {
             GruppoMontuoso::create([
                 'nome' => $nome
@@ -30,5 +35,23 @@ class DatabaseSeeder extends Seeder
                 'nome' => $nome
             ]);
         }
+        foreach($difficoltàEscursione as $nome){
+            Difficoltà::create([
+                'grado_difficoltà' => $nome,
+                'tipologia_id' => 1
+            ]);
+        } 
+        foreach($difficoltàAlpinismo as $nome){
+            Difficoltà::create([
+                'grado_difficoltà' => $nome,
+                'tipologia_id' => 2
+            ]);
+        } 
+        foreach($difficoltàFerrate as $nome){
+            Difficoltà::create([
+                'grado_difficoltà' => $nome,
+                'tipologia_id' => 3
+            ]);
+        } 
     }
 }

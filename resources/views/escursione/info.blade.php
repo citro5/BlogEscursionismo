@@ -58,7 +58,7 @@ Dettagli escursione
             </div>
             <div class="col-xs-6 col-sm-4 col-md-4">
             <i class="fas fa-shoe-prints service big margin-bottom-null"></i><em>Difficoltà</em>
-                <h3>E </h3>
+                <h3>{{$excursion -> difficoltà}}</h3>
                 <a class="small" style="font-style:italic"
                     href="/difficoltà">(Vai a legenda)</a>
             </div>
