@@ -8,7 +8,6 @@ style.css
 
 
 @section('corpo')
-
     <div class="cover"
         style="background-image:linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('{{url('/')}}/img/20210612_125717.jpg');">
         <div class="cover__content reveal">
@@ -57,7 +56,6 @@ Nelle schede relative ai percorsi si è evidenziato il luogo di partenza e di ar
         </div>
     </div>
 
-    <script> /* js code */</script>
     <script>
         let item = document.querySelector('.icon-hamburger');
         item.addEventListener("click", function () {

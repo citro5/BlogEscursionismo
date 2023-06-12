@@ -6,6 +6,7 @@ use App\Models\Difficoltà;
 use App\Models\Escursione;
 use App\Models\GruppoMontuoso;
 use App\Models\Tipologia;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,6 +19,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->populateDB();
+    }
+    private function populateDB() {
         $gruppi = ['Adamello', 'Bernina', 'Ortles-Cevedale'];
         $tipologie= ['escursionismo', 'alpinismo', 'via ferrata'];
         $difficoltàEscursione= ['T', 'E' ,'EE' ,'EEA'];
@@ -53,5 +57,16 @@ class DatabaseSeeder extends Seeder
                 'tipologia_id' => 3
             ]);
         } 
+        User::create([
+            'name' => 'Mattia',
+            'email' => 'm.citroni001@studenti.unibs.it',
+            'password' => md5('12345678q')
+        ]);
+
+        User::create([
+            'name' => 'Martina',
+            'email' => 'marti.rota@yahoo.com',
+            'password' => md5('12345678q')
+        ]);
     }
 }

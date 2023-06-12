@@ -1008,3 +1008,52 @@ select option[disabled] {
   background-color: #f7f7f7;
   padding: 5px;
 }
+.link-popup {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.info-button-container {
+  position: relative;
+  display: inline-block;
+}
+
+.info-button {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  margin-bottom: 3px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  pointer-events: none;
+}
+
+.info-button:hover {
+  background-color: #f1f1f1;
+}
+
+.info-content {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  color: #333;
+  width: 250px;
+  text-align: left;
+}
+
+.info-button-container:hover .info-content {
+  display: block;
+}
+.info-content p::first-word{
+  word-spacing: 20px;
+}

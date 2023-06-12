@@ -10,7 +10,7 @@ class Escursione extends Model
     use HasFactory;
     protected $table = 'escursione';  #nome tabella
     public $timestamps=false;
-    public $fillable=['titolo','data'];                   //attributi che possono essere popolati in maniera massiva
+    public $fillable=['titolo','data','descrizione', 'altitudine', 'tempistica'];                   //attributi che possono essere popolati in maniera massiva
     #protected $primaryKey= 'key';                            per cambiare nome primarykey
 
 

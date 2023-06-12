@@ -61,7 +61,30 @@
         </div> 
 
         <div class="form-group">
-            <label for="difficulty_id">Grado di difficoltà</label>
+            <label for="difficulty_id">Grado di difficoltà</label> 
+            <div class="info-button-container">
+                <button class="info-button">Info</button>
+                <div class="info-content">
+                    <p><b>Escursionismo</b><br>
+                        T:	Turistico<br>
+                        E:	Escursionistico<br>
+                        EE:  Per escursionisti esperti<br>
+                        EEA:	Per escursionisti esperti con attrezzatura<br>
+                        <b>Alpinismo</b><br>
+                        F:   Facile<br>
+                        PD:  Poco difficile<br>
+                        AD:  Abbastanza difficile<br>
+                        D:   Difficile<br>
+                        TD:  Troppo difficile<br>
+                        ED:  Estremamente difficile<br>
+                        <b>Vie ferrate</b><br>
+                        F:  Facile<br>
+                        MD: Mediamente difficile o Abbastanza difficile<br>
+                        D:  Difficile<br>
+                        TD: Troppo difficile<br>
+                        ED: Estremamente difficile</p>
+                </div>
+            </div>
             <select class="form-select" id="difficulty" name="difficulty" disabled required>
             @if(isset($excursion->id))
             <script>
@@ -200,8 +223,6 @@ $(document).ready(function() {
 });
 
         </script>
-
-
 
 </div>
 </div>
