@@ -40,13 +40,12 @@
             <label for="titolo"> Titolo</label>
             @if(isset($excursion->id))
                 <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Titolo" value="{{ $excursion->titolo }}" required/>
-                
-                @else
+            @else
                 <input class="form-control" type="text"  id="titolo" name="titolo" placeholder="Titolo" required/>
                 <div class="invalid-feedback">
                     Inserisci un titolo
                 </div>
-                @endif 
+            @endif 
         </div>
         
         <div class="form-group">
@@ -55,9 +54,8 @@
             <option value="" selected disabled hidden>Seleziona una tipologia</option>  
             @foreach($tipology_list as $tipology)
                     @if((isset($excursion->id))&&($tipology->id == $excursion->tipologia_id))
-                    <option value="{{ $tipology->id }}" selected="selected"> {{$tipology->nome}}</option>
+                    <option value="{{ $tipology->id }}" selected="selected" > {{$tipology->nome}}</option>
                     @else
-                    
                     <option value="{{ $tipology->id }}"> {{$tipology->nome}}</option>
                     @endif    
                 @endforeach
@@ -276,16 +274,47 @@ $(document).ready(function(){
 </script>
 
 <script>
-  const dateInput = document.getElementById('data');
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-  const day = String(currentDate.getDate()).padStart(2, '0');
-  const maxDate = `${year}/${month}/${day}`;
+$(document).ready(function() {
+  $('form[name=excursion]').on('submit', function(e) {
+    e.preventDefault();            // Previeni il comportamento di submit predefinito del modulo
+    var inputVal = $('#data').val();
+    if (inputVal === '') {
+        $('#data').addClass('error-border');
+    } else {
+        $('#data').addClass('valid-border');
+    }
 
-  $("#data").attr("max",maxDate);
+  $('#data').on('changeDate', function() {
+    $(this).removeClass('error-border');
+    $(this).addClass('valid-border');
+  });
+
+  var form = e.target;
+  var inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+  var isValid = true;
+
+  for (var i = 0; i < inputs.length; i++) {
+    var input = inputs[i];
+    if (!input.value) {
+        isValid = false;
+        input.classList.add('invalid');
+    } else {
+        input.classList.remove('invalid');
+    }
+  }
+
+  if (isValid) {
+    // Tutti i campi sono validi, esegui l'azione di submit
+    form.removeEventListener('submit', arguments.callee);   // Rimuovi il gestore dell'evento di submit
+    form.submit();
+  } else {
+    // Almeno un campo non è valido, non eseguire l'azione di submit
+    console.log('Form validation failed');
+  }
+  });
+});
+
 </script>
-        
 </div>
 </div>
 @endsection   
