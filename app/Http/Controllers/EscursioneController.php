@@ -36,10 +36,15 @@ class EscursioneController extends Controller
         $dl = new DataLayer();
         $excursions_list = $dl->listExcursions();
         $excursion = $dl->findExcursionById($id);
+        $user_id= $dl->findUserByExcursionId($id);
         $tipology_list= $dl->listTipology();
         $group_list= $dl->listMountainGroup();
+        if($user_id == $_SESSION['user_id'] && $excursion !== null ){
         return view('escursione.editExcursion')->with('excursionList', $excursions_list)->with('excursion', $excursion)->with('tipology_list', $tipology_list)->with('group_list', $group_list)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
+    }else {
+        return view('escursione.editErrorPage')->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
     }
+}
     public function update(Request $request, $id)
     {
         $dl = new DataLayer();
@@ -61,7 +66,8 @@ class EscursioneController extends Controller
     {
         $dl = new DataLayer();
         $excursion = $dl->findExcursionById($id);
-        if ($excursion !== null) {
+        $user_id = $dl -> findUserByExcursionId($id);
+        if ($excursion !== null && $user_id == $_SESSION['user_id']) {
             return view('escursione.deleteExcursion')->with('excursion', $excursion)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
         } else {
             return view('escursione.deleteErrorPage')->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
@@ -71,16 +77,20 @@ class EscursioneController extends Controller
         session_start();
         $dl=new DataLayer();
         $excursion=$dl->findExcursionById($id);
-
-        $images=$dl->getExcursionImages($id);
-        if(isset($_SESSION['loggedName'])){
-            return view('escursione.info')->with("images",$images)->with("excursion",$excursion)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
+        if ($excursion !== null) {
+            $images=$dl->getExcursionImages($id);
+            if(isset($_SESSION['loggedName'])){
+                return view('escursione.info')->with("images",$images)->with("excursion",$excursion)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
+            } else {
+                return view('escursione.info')->with("images",$images)->with("excursion",$excursion)->with('logged', false)->with('loggedName', "");
+            }
         } else {
-            return view('escursione.info')->with("images",$images)->with("excursion",$excursion)->with('logged', false)->with('loggedName', "");
+            return view('escursione.infoErrorPage')->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);   
         }
     }
 
     public function difficulty(){    
+        session_start();
         if(isset($_SESSION['loggedName'])){
             return view("escursione.difficoltà")->with('logged',true)->with('loggedName',$_SESSION['loggedName']);
         } else {
@@ -97,8 +107,19 @@ class EscursioneController extends Controller
             'difficolta' => $risultato
         ];
         
-        return response()->json($response);
-        
+        return response()->json($response);   
+    }
+    public function orderBy(Request $req){
+        session_start();
+        $order=$req->input('sortBy');
+        $dl=new DataLayer();
+        $excursions_list_order= $dl->orderBy($order);
+        $images=$dl->listExcursionImages();
+        if(isset($_SESSION['loggedName'])){
+            return view("escursione.index")->with("excursions_list", $excursions_list_order)->with('logged',true)->with('loggedName',$_SESSION['loggedName'])->with('images',$images)->with('order',$order); 
+        } else {
+            return view("escursione.index")->with("excursions_list", $excursions_list_order)->with('logged',false)->with('loggedName',"")->with('images',$images)->with('order',$order); 
+        }
     }
 }
 

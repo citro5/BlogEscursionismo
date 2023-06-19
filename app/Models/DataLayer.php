@@ -4,8 +4,15 @@ use App\Models\Escursione;
 
 class DataLayer {
 
+    public function orderBy($sortBy){
+        if($sortBy=="titolo"){
+        return Escursione::orderBy($sortBy,'asc')->get();
+        }else{
+        return Escursione::orderBy($sortBy,'desc')->get();
+    }
+}
     public function listExcursions(){
-        return Escursione::orderBy('data','asc')->get();
+        return Escursione::orderBy('id','desc')->get();
     }
     public function listTipology(){
         return Tipologia::orderBy('id','asc')->get();
@@ -20,6 +27,15 @@ class DataLayer {
     }
     public function findExcursionById($id) {
         return Escursione::find($id);
+    }
+
+    public function findUserByExcursionId($id) {
+        $excursion = Escursione::find($id);
+        if($excursion){
+        return $excursion->user_id;
+        } else { 
+        return null;
+        }
     }
     public function addExcursion($titolo, $tipologia_id,$difficoltà, $data, $altitudine, $tempistica, $gruppo_id,$descrizione,$img,$user_id){
         $excursion = new Escursione;

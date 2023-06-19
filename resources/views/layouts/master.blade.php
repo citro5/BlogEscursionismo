@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>  <!-- galleria foto-->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <script src="{{url('/')}}/js/bootstrap.bundle.min.js"></script>      <!-- Javascript -->
+    <script src="{{url('/')}}/js/myScript.js"></script>
     <script src="http://code.jquery.com/jquery.js"></script>             <!-- prende la LIBRERIA JQUERY da quel sito-->
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>  <!-- carousel foto-->
     <script src="https://kit.fontawesome.com/05e7f5a039.js" crossorigin="anonymous"></script> <!-- icone info -->
@@ -28,18 +29,18 @@
                 <li><a href="{{route('difficoltà')}}">Tabella difficoltà</a></li>
                 <li><a href="#">Blog</a></li>
                 <li><a href="#">Mappa</a></li>
-                <li><a href="#">Contatti</a></li>
+                <li><a href="#footer" onclick="event.preventDefault();showContacts();">Contatti</a></li>
             </ul>
             <div class="header__quick">
-                    @if($logged)
+                @if($logged)
                     <i class="bi bi-person-fill">&nbsp;{{$loggedName}}</i> <a class="button" href="{{route('user.logout')}}">Logout&nbsp;<i class="bi-box-arrow-left"></i></a> 
-                    @else
-                    <a class=" button" href="{{route('user.login')}}"><i class="bi bi-door-open-fill"></i> &nbsp;Login</a>
+                @else
+                    <a class="button" href="{{route('user.login')}}"><i class="bi bi-door-open-fill"></i> &nbsp;Login</a>
+                @endif
                 <div class="icon-hamburger">
                     <span></span>
                     <span></span>
                 </div>
-                    @endif
             </div>
         </div>
     </header>
@@ -58,20 +59,20 @@
             <div class="col-25 reveal">
                 <h3> Contatti</h3>
                 <ul>
-                    <li>email: mattia.citroni00@gmail.com</li>
-                    <li>335 622 5789</li>
+                    <li>email: info@escursionicamune.it</li>
+                    <li>Tel. + 39 335 622 5789</li>
                 </ul>
             </div>
             <div class="col-25 reveal">
                 <h3> Menu</h3>
                 <ul>
-                    <li>Link</li>
-                    <li>Link</li>
+                    <li><a style="color:white" href="{{route('home')}}">Home</a></li>
+                    <li><a style="color:white" href="{{route('escursione.index')}}">Lista escursioni</a></li>
+                    <li><a style="color:white" href="{{route('difficoltà')}}">Tabella difficoltà</a></li>
                 </ul>
             </div>
         </div>
     </footer>
 </body>
-
 
 </html>

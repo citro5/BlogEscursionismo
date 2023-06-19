@@ -16,6 +16,12 @@ use App\Http\Controllers\AuthController;
 |
 */
 Route::get('/',[FrontController::class, 'getHome'])-> name('home');
+Route::get('/escursione',[EscursioneController::class,'index'])->name('escursione.index');
+Route::get('/escursione/info/{id}', [EscursioneController::class, 'info'])->name('escursione.info');
+Route::get('/escursione/order',[EscursioneController::class, 'orderBy'])->name('escursione.order');
+Route::get('/difficoltà', [EscursioneController::class, 'difficulty'])->name('difficoltà');
+
+/* Rotte per l'autenticazione */ 
 Route::get('/user/login',[AuthController::class, 'authentication'])-> name('user.login');
 Route::post('/user/login',[AuthController::class, 'login'])->name('user.login');
 Route::post('/user/register',[AuthController::class, 'registration'])->name('user.register');
@@ -23,11 +29,7 @@ Route::get('/user/logout',[AuthController::class, 'logout'])->name('user.logout'
 Route::get('/registrationEmailCheck', [AuthController::class, 'registrationCheckForEmail']);
 Route::get('/registrationUsernameCheck',[AuthController::class,'registrationCheckForUsername']);
 
-Route::get('/escursione',[EscursioneController::class,'index'])->name('escursione.index');
-Route::get('/escursione/info/{id}', [EscursioneController::class, 'info'])->name('escursione.info');
-Route::get('/difficoltà', [EscursioneController::class, 'difficulty'])->name('difficoltà');
-
-// Rotte per utente registrato
+/* Rotte per utente registrato */
 Route::middleware(['authCustom'])->group(function(){
     //Route::resource('escursione', EscursioneController::class);
     Route::get('/escursione/create',[EscursioneController::class, 'create'])->name('escursione.create');

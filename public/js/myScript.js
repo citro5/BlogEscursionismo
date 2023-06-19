@@ -65,7 +65,7 @@ function checkRegistrationData() {
           data: { email: registrationEmail.val().trim() }
         });
       
-        $.when(usernameCheck, emailCheck).done(function(usernameResult, emailResult) {
+        $.when(usernameCheck, emailCheck).done(function(usernameResult, emailResult) {      //usernameResult e emailResult sono il return del metodo del controller caricato dalla rotta definita da ajax
           if (usernameResult[0].found) {
             error = true;
             regName_msg.html("Username già in uso");
@@ -81,6 +81,13 @@ function checkRegistrationData() {
           }
         });
       }
-
-   
 }
+
+function showContacts(){
+$(document).ready(function() {
+    // Effettua lo scorrimento della pagina verso l'ancor del footer
+    $('html, body').animate({
+      scrollTop: $('.footer').offset().top
+    }, 1000); // Tempo di animazione in millisecondi
+  });
+};

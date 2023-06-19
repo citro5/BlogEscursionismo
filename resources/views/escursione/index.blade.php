@@ -17,7 +17,7 @@ style.css
 
 @section('corpo')
 <div class="container text text-center mt-2">
-    <h1 class="mb-5 title" ><span>Lista delle escursioni</span></h1>
+    <h1 class="mb-4 title" ><span>Lista delle escursioni</span></h1>
 </div>
 @if($logged == true)
 <div class="grid grid--center">
@@ -26,6 +26,24 @@ style.css
     </div>
 </div>
 @endif
+<div class="custom-select">
+    <span class="label">Ordina</span>
+<select id="sortingSelect">
+    @if(!isset($order) || $order == "id" )
+        <option value="id" selected>Più recenti </option>
+        <option value="titolo">Titolo</option>
+        <option value="altitudine">Altitudine</option>
+     @elseif($order == 'titolo')
+        <option value="id">Più recenti </option>
+        <option value="titolo" selected>Titolo</option>
+        <option value="altitudine">Altitudine</option>
+    @else
+        <option value="id">Più recenti </option>
+        <option value="titolo">Titolo</option>
+        <option value="altitudine" selected>Altitudine</option>  
+    @endif
+</select>
+</div>
 <section class="cards clearfix">
     @foreach($excursions_list as $excursion)
         <a class="card"  href="{{ route('escursione.info', ['id' => $excursion->id])}}">
@@ -58,10 +76,22 @@ style.css
 </section>
 
 <script>
-$(document).ready(function() {
-  $('.card').click(function() {
-    // Azione da eseguire al clic sulla card
-    window.location.href = '{{ route("escursione.info", ":id") }}'.replace(':id', escursioneId); // Sostituisci 'nuova-vista.html' con l'URL desiderato
+// Gestire l'evento di selezione
+document.getElementById("sortingSelect").addEventListener("change", function() {
+  var selectedOption = this.value
+  // Effettua una chiamata AJAX al tuo modello per ottenere le escursioni ordinate
+  $.ajax({
+    url: '/escursione/order',
+    method: 'GET',
+    data: { sortBy: selectedOption },
+    success: function(response) {
+        var newDocument = document.open('text/html', 'replace');
+        newDocument.write(response);
+        newDocument.close();
+    },
+    error: function() {
+      console.log("Si è verificato un errore durante la chiamata AJAX");
+    }
   });
 });
 </script>

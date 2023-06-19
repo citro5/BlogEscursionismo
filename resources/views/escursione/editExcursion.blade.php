@@ -29,20 +29,24 @@
 <div class='grid mb-2'>
     <div class='col-12'>
         @if(isset($excursion->id))
-        <form class="form-horizontal" name="excursion" method="post" action="{{ route('escursione.update', ['id' => $excursion->id]) }}" enctype="multipart/form-data">
+        <form class="form-horizontal needs-validation" name="excursion" method="post" action="{{ route('escursione.update', ['id' => $excursion->id]) }}" enctype="multipart/form-data"  novalidate>
         @method('PUT')
         @else
-        <form class="form-horizontal" name="excursion" method="post" action="{{ route('escursione.store') }}" enctype="multipart/form-data">
+        <form class="form-horizontal needs-validation" name="excursion" method="post" action="{{ route('escursione.store') }}" enctype="multipart/form-data" novalidate>
         @endif
         @csrf
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         <div class="form-group">  
             <label for="titolo"> Titolo</label>
             @if(isset($excursion->id))
-                <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Titolo" value="{{ $excursion->titolo }}" required>
-            @else
-                <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Titolo" required>
-            @endif 
+                <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Titolo" value="{{ $excursion->titolo }}" required/>
+                
+                @else
+                <input class="form-control" type="text"  id="titolo" name="titolo" placeholder="Titolo" required/>
+                <div class="invalid-feedback">
+                    Inserisci un titolo
+                </div>
+                @endif 
         </div>
         
         <div class="form-group">
@@ -121,11 +125,13 @@
             </select>
         </div> 
         <div class="form-group"> <!-- Date input -->
-            <label class="control-label" for="data">Data</label>
+            <label for="data">Data</label>
             @if(isset($excursion->id))
-            <input class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" type="text" value="{{$excursion->data}}" required/>
+            <input class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" type="text" value="{{$excursion->data}}" required readonly/>
+            <div class="invalid-feedback">Inserisci una data valida</div>
             @else
-            <input class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" type="text" required/>
+            <input class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" type="text" pattern="(20[1-2][1-3]|19\d{2})/(0[1-9]|1[0-2])/(0[1-9]|1\d|2\d|3[0-1])" required readonly/>
+            <div class="invalid-feedback">Inserisci una data valida</div>
             @endif
         </div>
         <div class="form-group">
@@ -133,18 +139,25 @@
             @if(isset($excursion->id))
                 <input class="form-control" id="numero-input" type="text" name="altitudine" pattern="[0-9]{1,5}" title="Inserisci al massimo 5 cifre numeriche" placeholder="Altitudine" value="{{$excursion->altitudine}}"required>
                 <div id="numero-error" style="color: red;"></div>
+                <div class="invalid-feedback">
+                    Inserisci al massimo 5 cifre numeriche
+                </div>
                 @else
-                <input class="form-control" id="numero-input"  type="text" name="altitudine"pattern="[0-9]{1,5}" title="Inserisci al massimo 5 cifre numeriche" required>
+                <input class="form-control" id="numero-input"  type="text" name="altitudine" pattern="[0-9]{1,5}" title="Inserisci al massimo 5 cifre numeriche" placeholder="Altitudine"  required>
                 <div id="numero-error" style="color: red;"></div>
+                <div class="invalid-feedback">
+                    Inserisci al massimo 5 cifre numeriche
+                </div>
                 @endif
-            
         </div>
         <div class="form-group">
             <label for="tempistica">Tempo impiegato</label>
             @if(isset($excursion->id))
-                <input class="form-control" id="tempo-input" type="time" name="tempistica" placeholder="Tempo impiegato" value="{{$excursion->tempistica}}">
-            @else
-            <input class="form-control" id="tempo-input" type="time" name="tempistica" placeholder="Tempo impiegato" required>    
+                <input class="form-control" id="tempo-input" type="time" name="tempistica" placeholder="Tempo impiegato" value="{{$excursion->tempistica}}" required>
+                <div class="invalid-feedback">Inserisci il tempo impiegato</div>
+                @else
+                <input class="form-control" id="tempo-input" type="time" name="tempistica" placeholder="Tempo impiegato" required>    
+                <div class="invalid-feedback">Inserisci il tempo impiegato</div>
             @endif
             
         </div>
@@ -152,8 +165,14 @@
             <label for="descrizione">Descrizione</label>
             @if(isset($excursion->id))
             <textarea class="form-control" rows="3" cols="150" name="descrizione" placeholder="Descrizione" required>{{$excursion->descrizione}}</textarea>
+            <div class="invalid-feedback">
+                Inserisci una descrizione
+            </div>
             @else
             <textarea class="form-control"  rows="3" cols="150" name="descrizione" placeholder="Descrizione" required></textarea>   
+            <div class="invalid-feedback">
+                Inserisci una descrizione
+            </div>
             @endif
             
         </div>
@@ -182,7 +201,7 @@
     <script>
     $(document).ready(function(){
         var date_input=$('input[name="data"]'); //our date input has the name "data"
-        var container=$('.bootstrap-iso form').length=0 ? $('.bootstrap-iso form').parent() : "body";
+        var container=$('.bootstrap-iso form-group').length=0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
             format: 'yyyy/mm/dd',
             container: container,
@@ -198,10 +217,8 @@
 $(document).ready(function() {
   // Gestisci l'evento di cambio della tipologia
   $('#tipology_id').on('change', function() {
-    var tipologiaSelezionata = $(this).val().trim();
-    // Rimuovi tutte le opzioni del menu a tendina delle difficoltà
-    $('#difficulty').empty();
-    if (tipologiaSelezionata !== "") {
+    var tipologiaSelezionata = $(this).val();
+    if (tipologiaSelezionata !== null) {
       // Effettua la richiesta AJAX per ottenere le difficoltà associate alla tipologia
       $.ajax({
         url: '/getDifficulty',
@@ -211,6 +228,7 @@ $(document).ready(function() {
         success: function(result) {
           // Aggiungi le opzioni al menu a tendina delle difficoltà
           $('#difficulty').prop('disabled', false);
+          $('#difficulty').empty();
           $.each(result.difficolta, function(index, difficoltà) { 
           $('#difficulty').append($('<option>', {
                 value:difficoltà.grado_difficoltà,
@@ -224,6 +242,50 @@ $(document).ready(function() {
 
         </script>
 
+<script>
+$(document).ready(function(){
+    $(".info-button, .info-content").mouseover(function(){
+        $(".info-content").show();
+    })
+    $(".info-button, .info-content").mouseout(function() {
+        $(".info-content").hide();
+    });
+    $(".info-button").click(function(event){
+        event.preventDefault();
+    });
+});
+</script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
+
+<script>
+  const dateInput = document.getElementById('data');
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  const maxDate = `${year}/${month}/${day}`;
+
+  $("#data").attr("max",maxDate);
+</script>
+        
 </div>
 </div>
 @endsection   

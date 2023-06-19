@@ -4,8 +4,8 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 23-feb-2020, 12.24.39
-    Author     : devis
+    Created on : 10-apr-2023, 10.12.45
+    Author     : Mattia
 */
 
 .bg-cover {
@@ -124,6 +124,17 @@ h1.title,h2.title,h3.title,h4.title,h5.title,h6.title {
 .title.line {
     margin-top: 45px;
     margin-bottom: 30px;
+}
+@media (max-width: 768px) {
+  h1.title {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1.title {
+    font-size: 5px;
+  }
 }
 
 .padding-leftright-null {
@@ -307,7 +318,7 @@ div#menu li li { border:none; width:150px; }
     object-fit: cover;
     width: 100%;
   }
-.cards{max-width: 1200px;margin: 40px auto;}
+.cards{max-width: 1200px;margin: 120px auto;}
   .card{width:30%; float:left ; box-shadow: 0 5px 20px rgba(0,0,0,.1);overflow: hidden;margin: 0 1.5% 3% ; background:#fff;}
   .card__img{width: 100%; height:300px;}
   .card_copy{padding: 5px 20px;}
@@ -1028,7 +1039,7 @@ select option[disabled] {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  pointer-events: none;
+ 
 }
 
 .info-button:hover {
@@ -1038,7 +1049,6 @@ select option[disabled] {
 .info-content {
   display: none;
   position: absolute;
-  top: calc(100% + 10px);
   left: 50%;
   transform: translateX(-50%);
   background-color: #fff;
@@ -1051,9 +1061,73 @@ select option[disabled] {
   text-align: left;
 }
 
-.info-button-container:hover .info-content {
-  display: block;
+
+.custom-select {
+  max-width: 1200px;
+  float: right;
+  position: relative;
 }
-.info-content p::first-word{
-  word-spacing: 20px;
+.custom-select>.label{
+  margin:30px 120px;
+}
+.custom-select select {
+  
+  margin:30px 120px;
+  width: 200px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  font-size: 16px;
+  appearance: none;
+  background-image: linear-gradient(to right, #f7f7f7, #e5e5e5);
+  background-repeat: no-repeat;
+  padding-right: 30px;
+  color: #333; /* Colore del testo */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombra sottile */
+  transition: box-shadow 0.3s ease; /* Transizione sull'ombra */
+}
+
+.custom-select select:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra più intensa al passaggio del mouse */
+}
+
+.custom-select::after {   /* freccetta del select*/
+  content: '\25BC';
+  position: absolute;
+  top: 50%;
+  right: 130px;
+  transform: translateY(-50%);
+  color: #666;
+  pointer-events: none;
+}
+.label {
+  position: absolute;
+  top: -20px; /* Regola la distanza verticale dalla parte superiore del pulsante */
+  left: 0;
+  font-size: 14px; /* Regola la dimensione del testo della scritta */
+  font-weight: bold; /* Aggiunge un evidenziato al testo */
+}
+
+@media (max-width: 480px) {
+  .custom-select {
+    width: 100%; /* Larghezza al 100% quando la finestra si stringe */
+    margin-right: 0; /* Rimuovi il margine a destra */
+  }
+
+  .label {
+    position: static; /* Ripristina il posizionamento normale */
+    display: block; /* Mostra la scritta come blocco */
+    text-align: center; /* Allinea la scritta al centro */
+    margin-bottom: 10px; /* Aggiungi margine inferiore */
+  }
+
+  .custom-select select {
+    padding-right: 40px; /* Aumenta lo spazio a destra per l'icona */
+  }
+
+  .custom-select::after {
+    right: 5px; /* Riduci la distanza dall'icona a destra */
+  }
+
 }
