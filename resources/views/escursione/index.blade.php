@@ -26,6 +26,33 @@ style.css
     </div>
 </div>
 @endif
+<div class="custom-select" style="float:left">
+    <span class="label">Tipologia</span>
+<select id="filterSelect">
+    @if(!isset($type) || $type == 'all')
+        <option value="all" selected>Tutti</option>
+        <option value="1">Escursionismo </option>
+        <option value="2">Alpinismo</option>
+        <option value="3">Via ferrata</option>
+    @elseif($type == '1')
+        <option value="all" >Tutti</option>
+        <option value="1" selected>Escursionismo </option>
+        <option value="2">Alpinismo</option>
+        <option value="3">Via ferrata</option>
+     @elseif($type == '2')
+        <option value="all" >Tutti</option>
+        <option value="1">Escursionismo </option>
+        <option value="2"selected>Alpinismo</option>
+        <option value="3">Via ferrata</option>
+    @else
+        <option value="all" >Tutti</option>
+        <option value="1">Escursionismo </option>
+        <option value="2">Alpinismo</option>
+        <option value="3" selected>Via ferrata</option> 
+    @endif
+</select>
+</div>
+
 <div class="custom-select">
     <span class="label">Ordina</span>
 <select id="sortingSelect">
@@ -76,14 +103,23 @@ style.css
 </section>
 
 <script>
-// Gestire l'evento di selezione
-document.getElementById("sortingSelect").addEventListener("change", function() {
-  var selectedOption = this.value
-  // Effettua una chiamata AJAX al tuo modello per ottenere le escursioni ordinate
-  $.ajax({
-    url: '/escursione/order',
+// Gestire l'evento di filtraggio e ordinamento
+$(document).ready(function(){
+var sortSelect = document.getElementById('sortingSelect');
+var filterselect = document.getElementById("filterSelect"); 
+sortSelect.addEventListener("change",handleSelectChange);
+filterselect.addEventListener("change",handleSelectChange);
+
+function handleSelectChange(){
+    var sortValue= sortSelect.value;
+    var filterValue= filterSelect.value;
+
+    $.ajax({
+    url: '/escursione/filterSort',
     method: 'GET',
-    data: { sortBy: selectedOption },
+    data: { sortBy: sortValue, 
+        filterBy: filterValue
+    },
     success: function(response) {
         var newDocument = document.open('text/html', 'replace');
         newDocument.write(response);
@@ -92,7 +128,8 @@ document.getElementById("sortingSelect").addEventListener("change", function() {
     error: function() {
       console.log("Si è verificato un errore durante la chiamata AJAX");
     }
-  });
+    });
+}
 });
 </script>
 @endsection

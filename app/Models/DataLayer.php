@@ -2,15 +2,7 @@
 namespace App\Models;
 use App\Models\Escursione;
 
-class DataLayer {
-
-    public function orderBy($sortBy){
-        if($sortBy=="titolo"){
-        return Escursione::orderBy($sortBy,'asc')->get();
-        }else{
-        return Escursione::orderBy($sortBy,'desc')->get();
-    }
-}
+class DataLayer {  
     public function listExcursions(){
         return Escursione::orderBy('id','desc')->get();
     }
@@ -142,5 +134,19 @@ class DataLayer {
        $difficulty= Difficoltà::where('tipologia_id',$tipologia)->get('grado_difficoltà');
        return $difficulty;
     }
-    
+    public function filterSort($type, $sortBy)  //metodo per filtrare e ordinare escursioni
+        {
+            $query = Escursione::query();
+        
+            if ($type != "all") {
+                $query->where('tipologia_id', $type);
+            } 
+        
+            if ($sortBy == "titolo") {
+                $query->orderBy('titolo', 'asc');
+            } else {
+                $query->orderBy($sortBy, 'desc');
+            }
+            return $query->get();   
+    }
 };

@@ -18,7 +18,7 @@ use App\Http\Controllers\AuthController;
 Route::get('/',[FrontController::class, 'getHome'])-> name('home');
 Route::get('/escursione',[EscursioneController::class,'index'])->name('escursione.index');
 Route::get('/escursione/info/{id}', [EscursioneController::class, 'info'])->name('escursione.info');
-Route::get('/escursione/order',[EscursioneController::class, 'orderBy'])->name('escursione.order');
+Route::get('/escursione/filterSort',[EscursioneController::class, 'filterSort'])->name('escursione.filterSort');
 Route::get('/difficoltà', [EscursioneController::class, 'difficulty'])->name('difficoltà');
 
 /* Rotte per l'autenticazione */ 

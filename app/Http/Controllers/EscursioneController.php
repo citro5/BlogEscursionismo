@@ -109,16 +109,19 @@ class EscursioneController extends Controller
         
         return response()->json($response);   
     }
-    public function orderBy(Request $req){
+    
+
+    public function filterSort(Request $req){     //metodo per filtrare e ordinare escursioni
         session_start();
+        $type=$req->input('filterBy');
         $order=$req->input('sortBy');
         $dl=new DataLayer();
-        $excursions_list_order= $dl->orderBy($order);
+        $excursions_list_sort_filter= $dl->filterSort($type, $order);
         $images=$dl->listExcursionImages();
         if(isset($_SESSION['loggedName'])){
-            return view("escursione.index")->with("excursions_list", $excursions_list_order)->with('logged',true)->with('loggedName',$_SESSION['loggedName'])->with('images',$images)->with('order',$order); 
+            return view("escursione.index")->with("excursions_list", $excursions_list_sort_filter)->with('logged',true)->with('loggedName',$_SESSION['loggedName'])->with('images',$images)->with('type',$type)->with('order',$order); 
         } else {
-            return view("escursione.index")->with("excursions_list", $excursions_list_order)->with('logged',false)->with('loggedName',"")->with('images',$images)->with('order',$order); 
+            return view("escursione.index")->with("excursions_list", $excursions_list_sort_filter)->with('logged',false)->with('loggedName',"")->with('images',$images)->with('type',$type)->with('order',$order); 
         }
     }
 }
