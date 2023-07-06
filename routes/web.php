@@ -20,6 +20,7 @@ Route::get('/escursione',[EscursioneController::class,'index'])->name('escursion
 Route::get('/escursione/info/{id}', [EscursioneController::class, 'info'])->name('escursione.info');
 Route::get('/escursione/filterSort',[EscursioneController::class, 'filterSort'])->name('escursione.filterSort');
 Route::get('/difficoltà', [EscursioneController::class, 'difficulty'])->name('difficoltà');
+Route::get('/mappa', [EscursioneController::class, 'viewMap'])->name('mappa');
 
 /* Rotte per l'autenticazione */ 
 Route::get('/user/login',[AuthController::class, 'authentication'])-> name('user.login');

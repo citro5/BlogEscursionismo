@@ -101,6 +101,16 @@ class EscursioneController extends Controller
         }
     }
 
+    public function viewMap(){  
+        session_start();
+        if(isset($_SESSION['loggedName'])){
+            return view("escursione.mappa")->with('logged',true)->with('loggedName',$_SESSION['loggedName']);
+        } else {
+            return view("escursione.mappa")->with('logged',false)->with('loggedName',"");
+        }
+        
+    }
+
     public function getDifficolta(Request $request)
     {
         $dl=new DataLayer();

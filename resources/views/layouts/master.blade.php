@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{url('/')}}/css/@yield('stile')">  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">  <!-- per icone internazionalizzazione -->    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>  <!-- galleria foto-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />   <!--mappa-->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <script src="{{url('/')}}/js/bootstrap.bundle.min.js"></script>      <!-- Javascript -->
     <script src="{{url('/')}}/js/myScript.js"></script>
@@ -28,7 +29,7 @@
                 <li><a href="{{route('escursione.index')}}">Lista escursioni</a></li>
                 <li><a href="{{route('difficoltà')}}">Tabella difficoltà</a></li>
                 <li><a href="#">Blog</a></li>
-                <li><a href="#">Mappa</a></li>
+                <li><a href="{{route('mappa')}}">Mappa</a></li>
                 <li><a href="#footer" onclick="event.preventDefault();showContacts();">Contatti</a></li>
             </ul>
             <div class="header__quick">
