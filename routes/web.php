@@ -39,5 +39,7 @@ Route::middleware(['authCustom'])->group(function(){
     Route::get('/escursione/{id}/destroy', [EscursioneController::class, 'destroy'])->name('escursione.destroy');
     Route::get('/escursione/{id}/destroy/confirm', [EscursioneController::class, 'confirmDestroy'])->name('escursione.destroy.confirm');
     Route::get('/getDifficulty', [EscursioneController::class,'getDifficolta']);
+    Route::post('/escursione/commento', [EscursioneController::class, 'addCommento'])->name('escursione.commento');
+    Route::post('/escursione/commento/{id}', [EscursioneController::class, 'removeCommento'])->name('escursione.removeComment');
 });
 

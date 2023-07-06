@@ -72,6 +72,11 @@ class DataLayer {
         $img = Immagini::where('escursione_id',$id)->get();
         return $img;
     }
+
+    public function getExcursionComment($id){
+        $comments = Commenti::where("escursione_id",$id)->get();
+        return $comments;
+    }
     
     
     public function deleteExcursion($id) {
@@ -134,19 +139,28 @@ class DataLayer {
        $difficulty= Difficoltà::where('tipologia_id',$tipologia)->get('grado_difficoltà');
        return $difficulty;
     }
-    public function filterSort($type, $sortBy)  //metodo per filtrare e ordinare escursioni
-        {
-            $query = Escursione::query();
-        
-            if ($type != "all") {
-                $query->where('tipologia_id', $type);
-            } 
-        
-            if ($sortBy == "titolo") {
-                $query->orderBy('titolo', 'asc');
-            } else {
-                $query->orderBy($sortBy, 'desc');
-            }
-            return $query->get();   
+    public function filterSort($type, $sortBy){  //metodo per filtrare e ordinare escursioni
+        $query = Escursione::query();
+        if ($type != "all") {
+            $query->where('tipologia_id', $type);
+        } 
+        if ($sortBy == "titolo") {
+            $query->orderBy('titolo', 'asc');
+        } else {
+        $query->orderBy($sortBy, 'desc');
+        }
+        return $query->get();   
+    }
+
+    public function addComment($id,$commento,$autore,$data){
+        $comment = new Commenti();
+        $comment->escursione_id = $id;
+        $comment->contenuto = $commento;
+        $comment->autore=$autore;
+        $comment->data=$data;
+        $comment->save();
+    }
+    public function removeComment($id){
+        Commenti::find($id)->delete();
     }
 };

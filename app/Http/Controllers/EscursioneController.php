@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commenti;
 use App\Models\Tipologia;
 use Illuminate\Http\Request;
 use App\Models\DataLayer;
 use Illuminate\Support\Facades\Redirect;
+use Nette\Utils\DateTime;
 class EscursioneController extends Controller
 {
     public function index(){
@@ -79,10 +81,11 @@ class EscursioneController extends Controller
         $excursion=$dl->findExcursionById($id);
         if ($excursion !== null) {
             $images=$dl->getExcursionImages($id);
+            $comments=$dl->getExcursionComment($id);
             if(isset($_SESSION['loggedName'])){
-                return view('escursione.info')->with("images",$images)->with("excursion",$excursion)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
+                return view('escursione.info')->with("images",$images)->with("comments",$comments)->with("excursion",$excursion)->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);
             } else {
-                return view('escursione.info')->with("images",$images)->with("excursion",$excursion)->with('logged', false)->with('loggedName', "");
+                return view('escursione.info')->with("images",$images)->with("comments",$comments)->with("excursion",$excursion)->with('logged', false)->with('loggedName', "");
             }
         } else {
             return view('escursione.infoErrorPage')->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);   
@@ -124,5 +127,19 @@ class EscursioneController extends Controller
             return view("escursione.index")->with("excursions_list", $excursions_list_sort_filter)->with('logged',false)->with('loggedName',"")->with('images',$images)->with('type',$type)->with('order',$order); 
         }
     }
+    public function addCommento(Request $request) {
+        date_default_timezone_set('Europe/Rome');
+        $now = new DateTime();
+        $data = $now->format('Y-m-d H:i:s'); 
+        $dl=new DataLayer();
+        $dl-> addComment($request->input('escursione_id'),$request->input('commento'),$_SESSION['loggedName'],$data);
+        return redirect()->back()->with('success', 'Commento aggiunto con successo.');
+    }
+    public function removeCommento($id){
+        $dl=new DataLayer();
+        $dl-> removeComment($id);
+        return redirect()->back()->with('success', 'Commento rimosso con successo.');
+    }
+
 }
 

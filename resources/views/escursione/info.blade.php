@@ -74,15 +74,56 @@ Dettagli escursione
 </div>
   
   <div class="gallery">
-  <h1 class="mb-4 title line center">Gallery</h1>
-  <h3>Clicca su un immagine per aprire la galleria</h3>
-  @foreach ($images as $image)
-    <a href="{{asset('storage'.$image->path)}}" data-fancybox="gallery">
+    <h1 class="mb-4 title line center">Gallery</h1>
+    <h3>Clicca su un immagine per aprire la galleria</h3>
+    @foreach ($images as $image)
+      <a href="{{asset('storage'.$image->path)}}" data-fancybox="gallery">
       <img src="{{asset('storage'.$image->path)}}" alt="Immagine 1">
-      @endforeach
-    </a>
+    @endforeach
+      </a>
   </div>
 
+  <div style="margin-left:70px; margin-right:70px; margin-top:30px">
+  @if($logged == true)
+    <h3>Aggiungi un commento:</h3>
+    <form class="comment-form" id="recensioneForm" method="POST" action="{{ route('escursione.commento') }}">
+      @csrf
+      <input type="hidden" name="escursione_id" value="{{ $excursion->id }}">
+      <textarea id="commento" name="commento" placeholder="Inserisci il tuo commento"></textarea>
+      <button id="btn" type="submit" disabled>Invia</button>
+    </form>
+  @endif
+<!-- Mostra i comemnti precedenti -->
+<h3>Commenti:</h3>
+@if(count($comments) == 0)
+  <p>Nessun commento inserito</p>
+@endif
+@foreach ($comments as $comments)
+@if($comments-> autore == $loggedName)
+  <div class="comment" >
+    <div class="author">{{ $comments->autore }}</div>
+    <div class="date">{{ $comments->data }}</div>
+    <div class="content">{{ $comments->contenuto }}</div>
+    <div class="actions">
+    <form action="{{ route('escursione.removeComment', ['id' => $comments->id]) }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-danger">Elimina</button>
+  </form>
+    </div>
+  </div>
+@else
+  <div class="comment" style= "background-color: #f5f5f5">
+    <div class="author">{{ $comments->autore }}</div>
+    <div class="date">{{ $comments->data }}</div>
+    <div class="content">{{ $comments->contenuto }}</div>
+    <div class="actions">
+      <!-- Aggiungi qui eventuali pulsanti o azioni per i commenti -->
+    </div>
+  </div>
+  @endif
+
+@endforeach
+</div>
   <script>
 
     Fancybox.bind('[data-fancybox="gallery"]', {
@@ -92,6 +133,19 @@ Dettagli escursione
       });  
    
   </script>
+
+<script>
+  // Seleziona il campo textarea e il pulsante di submit del form di commento
+  var commentField = document.getElementById('commento');
+  var submitButton = document.getElementById('btn');
+  commentField.addEventListener('input', function() {
+    if (commentField.value.trim() === '') {
+      submitButton.disabled = true;     // Disabilita il pulsante di submit se il campo è vuoto
+    } else {
+      submitButton.disabled = false;      // Abilita il pulsante di submit se il campo non è vuoto
+    }
+  });
+</script>
 </div>       
 @endsection
 

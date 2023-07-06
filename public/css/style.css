@@ -1154,6 +1154,85 @@ select option[disabled] {
   top: 50%;
   right: 5px;
   transform: translateY(-50%);
-  color: red;
-  
+  color: red; 
 }
+.comment {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  background-color: #d4dcee;
+}
+
+.commentWhite {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  background-color:white;
+}
+
+.comment .author {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.comment .date {
+  font-style: italic;
+  margin-bottom: 5px;
+  color: #777;
+  text-align: right;
+}
+
+.comment .content {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.comment .actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.comment .actions button {
+  margin-left: 10px;
+  background-color: #3b5998;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.comment .actions button:hover {
+  background-color: #2d4373;
+}
+
+.comment-form {
+  margin-bottom: 20px;
+}
+
+.comment-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  resize: none;
+}
+
+.comment-form button {
+  margin-top: 10px;
+  background-color: #3b5998;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+
+.comment-form button:hover {
+  background-color: #2d4373;
+}
+
