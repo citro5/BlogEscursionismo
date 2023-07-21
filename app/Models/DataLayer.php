@@ -12,7 +12,6 @@ class DataLayer {
     public function listMountainGroup(){
         return GruppoMontuoso::orderBy('id','asc')->get();
     }
-
     public function listExcursionImages()
     {
         return Immagini::orderBy('id','asc')->get();
@@ -20,7 +19,6 @@ class DataLayer {
     public function findExcursionById($id) {
         return Escursione::find($id);
     }
-
     public function findUserByExcursionId($id) {
         $excursion = Escursione::find($id);
         if($excursion){
@@ -131,7 +129,6 @@ class DataLayer {
         $i->path='/img/upload/'.$excursion->id.$v.'.png';
         $i->escursione_id=$excursion->id;
         $i->save();
-
         $image->storeAs('public/img/upload',$excursion->id.$v.'.png');
     }
 

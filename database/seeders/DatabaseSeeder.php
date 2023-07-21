@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->populateDB();
     }
     private function populateDB() {
-        $gruppi = ['Adamello', 'Bernina', 'Ortles-Cevedale'];
+        $gruppi = ['Adamello', 'Bernina', 'Ortles-Cevedale', 'Orobie','Dolomiti'];
         $tipologie= ['escursionismo', 'alpinismo', 'via ferrata'];
         $difficoltàEscursione= ['T', 'E' ,'EE' ,'EEA'];
         $difficoltàAlpinismo= ['F','F+','PD-','PD','PD+', 'AD-','AD','AD+','D-','D','D+','TD-','TD','TD+','ED-','ED','ED+'];
@@ -166,23 +166,23 @@ class DatabaseSeeder extends Seeder
             'difficoltà' => 'MD',
             'user_id' => '2',
         ]);
-for($i=1;$i<10;$i++){
-        Immagini::create([
-            'path'=>"/img/upload/1{$i}.jpg",
-            'escursione_id'=> '1',
-        ]);
-        Immagini::create([
-            'path'=>"/img/upload/2{$i}.jpg",
-            'escursione_id'=> '2',
-        ]);
-        Immagini::create([
-            'path'=>"/img/upload/3{$i}.jpg",
-            'escursione_id'=> '3',
-        ]);
-        Immagini::create([
-            'path'=>"/img/upload/4{$i}.jpg",
-            'escursione_id'=> '4',
-        ]);
-    }
+        for($i=1;$i<10;$i++){
+            Immagini::create([
+                'path'=>"/img/upload/1{$i}.jpg",
+                'escursione_id'=> '1',
+            ]);
+            Immagini::create([
+                'path'=>"/img/upload/2{$i}.jpg",
+                'escursione_id'=> '2',
+            ]);
+            Immagini::create([
+                'path'=>"/img/upload/3{$i}.jpg",
+                'escursione_id'=> '3',
+            ]);
+            Immagini::create([
+                'path'=>"/img/upload/4{$i}.jpg",
+                'escursione_id'=> '4',
+            ]);
+        }
     }
 }

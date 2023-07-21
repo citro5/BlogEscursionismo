@@ -43,7 +43,6 @@ Dettagli escursione
               <i class="bi bi-calendar4-week service big margin-bottom-null"></i><em>Data</em>
                 <h3>{{$excursion -> data}}</h3>
             </div>
-            
             <div class="col-xs-6 col-sm-6 col-md-4"><i
                     class="fas fa-map-pin service big margin-bottom-null"></i><em>Altitudine max</em>
                 <h3>{{$excursion -> altitudine}}</h3>
@@ -62,15 +61,14 @@ Dettagli escursione
                 <a class="small" style="font-style:italic"
                     href="/difficoltà">(Vai a legenda)</a>
             </div>
-  
             <div class="col-xs-6 col-sm-4 col-md-4"><i class="bi bi-watch service big margin-bottom-null"></i>
                   <em>Tempo</em>
                 <h3>{{$excursion -> tempistica}}</h3>
             </div>
         </div>
     </div>
-</div>
-</div>
+  </div>
+  </div>
 </div>
   
   <div class="gallery">
@@ -93,7 +91,7 @@ Dettagli escursione
       <button id="btn" type="submit" disabled>Invia</button>
     </form>
   @endif
-<!-- Mostra i comemnti precedenti -->
+<!-- Mostra i commenti precedenti -->
 <h3>Commenti:</h3>
 @if(count($comments) == 0)
   <p>Nessun commento inserito</p>
@@ -124,15 +122,13 @@ Dettagli escursione
 
 @endforeach
 </div>
-  <script>
-
-    Fancybox.bind('[data-fancybox="gallery"]', {
-        Carousel : {
-          infinite: false
-        }
-      });  
-   
-  </script>
+<script>
+  Fancybox.bind('[data-fancybox="gallery"]', {
+      Carousel : {
+        infinite: false
+      }
+    });  
+</script>
 
 <script>
   // Seleziona il campo textarea e il pulsante di submit del form di commento

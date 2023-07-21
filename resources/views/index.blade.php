@@ -6,7 +6,6 @@
 style.css
 @endsection
 
-
 @section('corpo')
     <div class="cover"
         style="background-image:linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('{{url('/')}}/img/20210612_125717.jpg');">
@@ -21,16 +20,15 @@ style.css
 
     <div class="grid pt-4">
         <div class="col-50 reveal">
-            <h2>Chi siamo</h2>
-            <p>In questo lavoro sono state raccolte le descrizioni sintetiche di alcune delle tante escursioni e dei molteplici itinerari che il nostro territorio ci offre, e che ho avuto il piacere di fare con gli amici o da solo. La maggior parte di questi itinerari hanno difficoltà escursionistica ed alcuni addirittura turistica, quindi sono adatti a tutti quelli che hanno un minimo di allenamento. Le escursioni sono state inserite in un elenco generale, con riferimento alla suddivisione settoriale della lunga (90 km) Vallecamonica, e quindi in relazione ai paesi principali e/o zone limitrofe che bisogna raggiungere per iniziare la camminata; inoltre sono state anche  raggruppate in due parti distinte: sotto i 2000 m e sopra i 2000 m di altitudine ed elencate in ordine di quota crescente; In tal modo è più veloce la consultazione e/o la scelta del percorso o del sentiero da fare, in relazione alla zona da raggiungere, alla stagione climatica e alle esigenze personali. Quasi tutti gli itinerari descritti sono corredati da una mappa e da alcune foto esclusivamente scattate dal sottoscritto e/o da amici, ed abbastanza recenti in quanto effettuate a partire dall’estate 2012. 
-Nelle schede relative ai percorsi si è evidenziato il luogo di partenza e di arrivo, con i relativi tempi di percorrenza, i dislivelli, le difficoltà e la data della gita. E’ ovvio che ancora sono tante le escursioni e le gite da fare, e che piano piano, spero, andranno ad arricchire questa raccolta di percorsi dedicata agli Escursionisti e agli amanti della montagna. I vari itinerari sono consultabili con un browser e sono corredati da alcune foto e da estratti di mappe con evidenziati i sentieri della zona interessata, facilitando così la visione dettagliata dei vari percorsi. E’ sempre comunque consigliato avere appresso la mappa o cartina originale: la Carta funziona sempre, non deve agganciarsi al 3G o avere bel tempo per arrivare al satellite.  Non dotarsi di mappe è una scelta che priva di fascino e di sapere profondo!</p>
+            <h2>Chi sono</h2>
+            <p>Sono un ragazzo di 23 anni, abito in un piccolo paesino della Vallecamonica e fin da piccolo sono cresciuto con la passione della montagna. In questo lavoro vengono raccolte le descrizioni sintetiche di alcune delle tante escursioni e dei molteplici itinerari che il nostro territorio ci offre. La maggior parte di questi itinerari hanno difficoltà escursionistica ed alcuni addirittura turistica, quindi sono adatti a tutti quelli che hanno un minimo di allenamento. Le escursioni sono state inserite in un elenco generale, con la possibilità di suddividerle in base alla tipologia(escursionismo, alpinismo, via ferrata) e con la possibilità di ordinarle in base ad altitudine, nome o data di caricamento.
+            L'utente una volta registrato può inserire una nuova escursione a cui possono essere associate varie informazioni come l'altitudine, la difficoltà, il tempo di percorrenza e alcune immagini dell'escursione. Inoltre l'utente registrato può apportare dei commenti a tutte le escursioni presenti nel sito. L'utente non registrato(visitatore) può semplicemente visualizzare le escursioni e tutte le informazioni associate ad esse. All'interno di ogni escursione è presente una sua descrizione, la scheda tecnica che contiene informazioni come difficoltà, tipologia, tempo di percorrenza e gruppo montuoso di appartenenza, le immagini dell'escursione e infine i commenti apportati dagli utenti.
+            <br>L'idea che circonda questo progetto è di dare la possibilità agli utenti di creare una raccolta personale delle proprie escursioni e allo stesso tempo condividerle con gli altri utenti in modo da diffondere le proprie esperienze e conoscenze per cercare di arricchire questa raccolta di percorsi dedicata a chi come me è un escursionista ma soprattutto un amante della montagna. </p>
         </div>
         <div class="col-50">
             <div class="cover reveal"
                 style="background-image:linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('{{url('/')}}/img/IMG-20190828-WA0125.jpg');">
-                <div class="cover__content">
-
-                </div>
+                <div class="cover__content"></div>
             </div>
         </div>
     </div>
@@ -57,11 +55,6 @@ Nelle schede relative ai percorsi si è evidenziato il luogo di partenza e di ar
     </div>
 
     <script>
-        let item = document.querySelector('.icon-hamburger');
-        item.addEventListener("click", function () {
-            document.body.classList.toggle('menu-open');
-        });
-
         ScrollReveal().reveal('.reveal', {distance: '100px', duration: 1500, easing: 'cubic-bezier(.215, .61, .355, 1)',interval: 600  });
     </script>
 </body>

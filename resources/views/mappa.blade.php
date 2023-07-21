@@ -17,6 +17,9 @@ Mappa
 @endsection
 
 @section('corpo')
+<div class="container text text-center mt-2">
+    <h1 class="mb-4 title" ><span>Mappa delle escursioni</span></h1>
+</div>                                             
 <div id="map"></div>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
@@ -43,12 +46,6 @@ waypoints.forEach(function(waypoint) {
  
 
 });
-
-
 </script>
-
-<script>
-
-    </script>
 
 @endsection

@@ -39,9 +39,9 @@
         <div class="form-group">  
             <label for="titolo"> Titolo</label>
             @if(isset($excursion->id))
-                <input class="form-control" type="text" id="titolo" name="titolo" placeholder="Titolo" value="{{ $excursion->titolo }}" required/>
+                <input class="form-control" maxlength="200"  type="text" id="titolo" name="titolo" placeholder="Titolo" value="{{ $excursion->titolo }}" required/>
             @else
-                <input class="form-control" type="text"  id="titolo" name="titolo" placeholder="Titolo" required/>
+                <input class="form-control" maxlength="200" type="text"  id="titolo" name="titolo" placeholder="Titolo" required/>
                 <div class="invalid-feedback">
                     Inserisci un titolo
                 </div>
@@ -162,17 +162,16 @@
         <div class="form-group">
             <label for="descrizione">Descrizione</label>
             @if(isset($excursion->id))
-            <textarea class="form-control" rows="3" cols="150" name="descrizione" placeholder="Descrizione" required>{{$excursion->descrizione}}</textarea>
+            <textarea class="form-control" maxlength="65535" rows="3" cols="150" name="descrizione" placeholder="Descrizione" required>{{$excursion->descrizione}}</textarea>
             <div class="invalid-feedback">
                 Inserisci una descrizione
             </div>
             @else
-            <textarea class="form-control"  rows="3" cols="150" name="descrizione" placeholder="Descrizione" required></textarea>   
+            <textarea class="form-control" maxlength="65535" rows="3" cols="150" name="descrizione" placeholder="Descrizione" required></textarea>   
             <div class="invalid-feedback">
                 Inserisci una descrizione
             </div>
             @endif
-            
         </div>
         <div class="form-group">
             <label for="images" class="form-label">Immagini escursione
@@ -189,14 +188,11 @@
             <input id="mySubmit" type="submit" value="Create" class="hidden"/>
             @endif
 
-    </form>
+        </form>
+    </div>
+</div>
 
-
-    <!-- Include Date Range Picker -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
-    <script>
+<script>
     $(document).ready(function(){
         var date_input=$('input[name="data"]'); //our date input has the name "data"
         var container=$('.bootstrap-iso form-group').length=0 ? $('.bootstrap-iso form').parent() : "body";
@@ -208,10 +204,9 @@
             endDate: "today", 
         })
     })
-    </script>
+</script>
 
-    <script>
-
+<script>
 $(document).ready(function() {
   // Gestisci l'evento di cambio della tipologia
   $('#tipology_id').on('change', function() {
@@ -237,8 +232,7 @@ $(document).ready(function() {
     })
   }}).trigger('change');     //prende anche il valore iniziale, non solo quando cambia
 });
-
-        </script>
+</script>
 
 <script>
 $(document).ready(function(){
@@ -254,7 +248,7 @@ $(document).ready(function(){
 });
 </script>
 
-<script>
+<script>//validation di Bootstrapp
     // Example starter JavaScript for disabling form submissions if there are invalid fields
 (() => {
   'use strict'
@@ -273,7 +267,7 @@ $(document).ready(function(){
 })()
 </script>
 
-<script>
+<script>  //script per bordo verde o rosso(validazione) sull'input della data
 $(document).ready(function() {
   $('form[name=excursion]').on('submit', function(e) {
     e.preventDefault();            // Previeni il comportamento di submit predefinito del modulo
@@ -283,7 +277,6 @@ $(document).ready(function() {
     } else {
         $('#data').addClass('valid-border');
     }
-
   $('#data').on('changeDate', function() {
     $(this).removeClass('error-border');
     $(this).addClass('valid-border');
@@ -313,8 +306,6 @@ $(document).ready(function() {
   }
   });
 });
-
 </script>
-</div>
-</div>
+
 @endsection   

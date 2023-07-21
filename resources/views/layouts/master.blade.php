@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head> <!--indicazioni per il browser -->
     <meta charset="utf-8" />
     <title>@yield('titolo')</title>  
@@ -12,14 +11,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">  <!-- per icone internazionalizzazione -->    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>  <!-- galleria foto-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />   <!--mappa-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <script src="{{url('/')}}/js/bootstrap.bundle.min.js"></script>      <!-- Javascript -->
     <script src="{{url('/')}}/js/myScript.js"></script>
     <script src="http://code.jquery.com/jquery.js"></script>             <!-- prende la LIBRERIA JQUERY da quel sito-->
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>  <!-- carousel foto-->
     <script src="https://kit.fontawesome.com/05e7f5a039.js" crossorigin="anonymous"></script> <!-- icone info -->
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>  <!-- animazioni homepage-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 </head>
-
 <body>
     <header class="header">
         <div class="header__content">
@@ -28,7 +29,6 @@
                 <li><a href="{{route('home')}}">Home</a></li>
                 <li><a href="{{route('escursione.index')}}">Lista escursioni</a></li>
                 <li><a href="{{route('difficoltà')}}">Tabella difficoltà</a></li>
-                <li><a href="#">Blog</a></li>
                 <li><a href="{{route('mappa')}}">Mappa</a></li>
                 <li><a href="#footer" onclick="event.preventDefault();showContacts();">Contatti</a></li>
             </ul>
@@ -55,25 +55,33 @@
         <div class="grid">
             <div class="col-50 reveal">
                 <h3>Escursioni camune</h3>
-                <p>Solo per veri appassionati di montagna</p>
+                <p>Raccolta di escursioni per veri appassionati di montagna</p>
+                <i class="fa-brands fa-facebook fa-xl"></i>
+                <i class="fa fa-instagram fa-xl"></i>
             </div>
             <div class="col-25 reveal">
-                <h3> Contatti</h3>
+                <h3>Contatti</h3>
                 <ul>
-                    <li>email: info@escursionicamune.it</li>
+                    <li>Email: info@escursionicamune.it</li>
                     <li>Tel. + 39 335 622 5789</li>
                 </ul>
             </div>
             <div class="col-25 reveal">
-                <h3> Menu</h3>
+                <h3>Menu</h3>
                 <ul>
                     <li><a style="color:white" href="{{route('home')}}">Home</a></li>
                     <li><a style="color:white" href="{{route('escursione.index')}}">Lista escursioni</a></li>
                     <li><a style="color:white" href="{{route('difficoltà')}}">Tabella difficoltà</a></li>
+                    <li><a style="color:white" href="{{route('mappa')}}">Mappa</a></li>
                 </ul>
             </div>
         </div>
     </footer>
+    <script> 
+        let item = document.querySelector('.icon-hamburger');
+        item.addEventListener("click", function () {
+            document.body.classList.toggle('menu-open');
+        });
+    </script>
 </body>
-
 </html>

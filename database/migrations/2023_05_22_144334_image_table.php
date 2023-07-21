@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('escursione_id')->unsigned();
         });
         Schema::table('immagini', function (Blueprint $table) {
-            
             $table->foreign('escursione_id')->references('id')->on('escursione');
         });
     }

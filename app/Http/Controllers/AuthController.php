@@ -25,9 +25,7 @@ class AuthController extends Controller
             Session::flash('error', 'Credenziali errate. Riprova.');             // credenziali errate: memorizza un messaggio di errore nella sessione che sarà recuperato nella vista del login in modo da mandare messaggio di errore
             return redirect()->route('user.login')->withInput();
         }
-
     }
-    
     public function logout(){
         session_start();
         session_destroy();
@@ -40,7 +38,7 @@ class AuthController extends Controller
         return Redirect::to(route('user.login'));
     }
 
-    public function registrationCheckForEmail(Request $req) {
+    public function registrationCheckForEmail(Request $req) {   //usato da ajax per controllare email duplicate
         $dl = new DataLayer();
         
         if($dl-> checkEmail($req->input('email')))
@@ -52,7 +50,7 @@ class AuthController extends Controller
         return response()->json($response);
     }
 
-    public function registrationCheckForUsername(Request $req) {
+    public function registrationCheckForUsername(Request $req) {    //usato da ajax per controllare username duplicati
         $dl = new DataLayer();
         
         if($dl-> checkUsername($req->input('username')))

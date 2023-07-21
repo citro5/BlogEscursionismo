@@ -1,11 +1,10 @@
 @extends('layouts.master')
 
 @section('titolo')
-Rimuovi escursione dalla lista
+Errore
 @endsection
 
 @section('stile', 'style.css')
-
 
 @section('breadcrumb')
 <nav aria-label="breadcrumb">

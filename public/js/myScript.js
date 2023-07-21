@@ -25,7 +25,7 @@ function checkRegistrationData() {
 
     if (registrationEmail.val().trim() === "")
     {
-        regEmail_msg.html("Inserisci un email");
+        regEmail_msg.html("Inserisci un'email");
         error = true;
     } else if(!registrationEmail.val().trim().match(emailRegularExpression))
     {
@@ -75,7 +75,7 @@ function checkRegistrationData() {
             error = true;
             regEmail_msg.html("Email già in uso");
           }
-      
+
           if (!error) {
             $('form[id=register-form]').submit();
           }
@@ -91,3 +91,5 @@ $(document).ready(function() {
     }, 1000); // Tempo di animazione in millisecondi
   });
 };
+
+

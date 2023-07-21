@@ -88,34 +88,36 @@ class EscursioneController extends Controller
                 return view('escursione.info')->with("images",$images)->with("comments",$comments)->with("excursion",$excursion)->with('logged', false)->with('loggedName', "");
             }
         } else {
-            return view('escursione.infoErrorPage')->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);   
+            if(isset($_SESSION['loggedName'])){
+                return view('escursione.infoErrorPage')->with('logged', true)->with('loggedName', $_SESSION["loggedName"]);   
+            }else{
+                return view('escursione.infoErrorPage')->with('logged', false);   
+            }
         }
     }
 
     public function difficulty(){    
         session_start();
         if(isset($_SESSION['loggedName'])){
-            return view("escursione.difficoltà")->with('logged',true)->with('loggedName',$_SESSION['loggedName']);
+            return view("difficoltà")->with('logged',true)->with('loggedName',$_SESSION['loggedName']);
         } else {
-            return view("escursione.difficoltà")->with('logged',false)->with('loggedName',"");
+            return view("difficoltà")->with('logged',false)->with('loggedName',"");
         }
     }
 
     public function viewMap(){  
         session_start();
         if(isset($_SESSION['loggedName'])){
-            return view("escursione.mappa")->with('logged',true)->with('loggedName',$_SESSION['loggedName']);
+            return view("mappa")->with('logged',true)->with('loggedName',$_SESSION['loggedName']);
         } else {
-            return view("escursione.mappa")->with('logged',false)->with('loggedName',"");
+            return view("mappa")->with('logged',false)->with('loggedName',"");
         }
-        
     }
 
     public function getDifficolta(Request $request)
     {
         $dl=new DataLayer();
         $risultato= $dl->getDifficulty($request->input('tipologia'));
-        
         $response = [
             'difficolta' => $risultato
         ];
@@ -150,6 +152,5 @@ class EscursioneController extends Controller
         $dl-> removeComment($id);
         return redirect()->back()->with('success', 'Commento rimosso con successo.');
     }
-
 }
 
